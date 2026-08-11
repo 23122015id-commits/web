@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Destinasi Wisata Danau Raya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<div class="topbar"><div class="topbar-inner"></div></div>
+
+<header class="hero" style="padding-top:44px;">
+  <div class="hero-inner" style="padding-bottom:44px;">
+    <div class="eyebrow"><span>wisata air &middot; musi rawas utara</span></div>
+    <h1 data-editable id="heroTitle" style="font-size:42px;">Destinasi Wisata Danau Raya</h1>
+    <p class="sub" id="heroSub">Danau alami yang tenang, dikelilingi pepohonan rimbun — sempurna untuk wisata air dan piknik keluarga.</p>
+  </div>
+  <svg class="hills" viewBox="0 0 1200 100" preserveAspectRatio="none">
+    <path d="M0,60 C150,10 300,90 500,45 C700,5 850,80 1050,40 C1150,18 1200,45 1200,45 L1200,100 L0,100 Z" fill="#DCE9CE"/>
+    <path d="M0,80 C200,45 380,100 600,65 C820,32 1000,95 1200,65 L1200,100 L0,100 Z" fill="#C3D9AE"/>
+    <path d="M0,100 C250,80 450,100 700,86 C900,76 1050,100 1200,90 L1200,100 L0,100 Z" fill="#2F5233"/>
+  </svg>
+</header>
+
+<section class="content" id="sejarah">
+  <div class="container">
+    <div class="section-head"><div class="eyebrow">01 &middot; asal usul</div><h2>Sejarah</h2></div>
+    <div class="split">
+      <div data-editable id="sejarahTextWrap">
+        <button class="edit-btn" id="editSejarahText" title="Edit teks" type="button">&#9998;</button>
+        <p id="sejarahText"></p>
+      </div>
+      <div class="media" data-editable id="sejarahImgWrap">
+        <button class="edit-btn" id="editSejarahImg" title="Ganti gambar" type="button">&#9998;</button>
+        <img id="sejarahImg" alt="Sejarah Danau Raya">
+      </div>
+    </div>
+  </div>
+</section>
+
+<svg class="divider" viewBox="0 0 1200 60" preserveAspectRatio="none" style="height:60px;"><path d="M0,30 C300,60 900,0 1200,30 L1200,60 L0,60 Z" fill="var(--surface)"/></svg>
+
+<section class="content alt" id="budaya">
+  <div class="container">
+    <div class="section-head"><div class="eyebrow">02 &middot; tradisi setempat</div><h2>Budaya</h2></div>
+    <div class="split">
+      <div class="media" data-editable id="budayaImgWrap">
+        <button class="edit-btn" id="editBudayaImg" title="Ganti gambar" type="button">&#9998;</button>
+        <img id="budayaImg" alt="Budaya Danau Raya">
+      </div>
+      <div data-editable id="budayaTextWrap">
+        <button class="edit-btn" id="editBudayaText" title="Edit teks" type="button">&#9998;</button>
+        <p id="budayaText"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content" id="daya-tarik">
+  <div class="container">
+    <div class="section-head"><div class="eyebrow">03 &middot; aktivitas &amp; daya tarik</div><h2>Daya Tarik Destinasi</h2></div>
+    <div class="grid-cards" id="dayaTarikGrid"></div>
+    <button class="add-btn" id="addDayaTarikBtn" type="button" style="margin-top:16px;">+ tambah daya tarik</button>
+  </div>
+</section>
+
+<svg class="divider" viewBox="0 0 1200 60" preserveAspectRatio="none" style="height:60px;"><path d="M0,30 C300,0 900,60 1200,30 L1200,60 L0,60 Z" fill="var(--surface)"/></svg>
+
+<section class="content alt" id="dokumentasi">
+  <div class="container">
+    <div class="section-head"><div class="eyebrow">04 &middot; jejak kunjungan</div><h2>Dokumentasi</h2></div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="foto" type="button">Foto</button>
+      <button class="tab-btn" data-tab="video" type="button">Video</button>
+    </div>
+    <div id="tabFoto">
+      <div class="gallery" id="galleryGrid"></div>
+      <button class="add-btn" id="addPhotoBtn" type="button" style="margin-top:14px;">+ tambah foto</button>
+    </div>
+    <div id="tabVideo" style="display:none;">
+      <div class="videos" id="videoGrid"></div>
+      <button class="add-btn" id="addVideoBtn" type="button" style="margin-top:14px;">+ tambah video</button>
+    </div>
+  </div>
+</section>
+
+<section class="content" id="lokasi">
+  <div class="container">
+    <div class="section-head" style="display:flex;justify-content:space-between;align-items:flex-end;">
+      <div><div class="eyebrow">05 &middot; cara ke sini</div><h2>Lokasi &amp; Peta</h2></div>
+      <button class="btn btn-ghost" id="editMapsBtn" type="button" style="display:none;border-color:var(--line);color:var(--primary);">edit peta</button>
+    </div>
+    <div class="map-wrap"><iframe id="mapsFrame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Peta lokasi Danau Raya"></iframe></div>
+    <div class="map-address"><span>&#128205;</span><span id="mapsAddress"></span></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>&copy; <span id="year"></span> Danau Raya</span>
+    <a href="#" id="footerAdminLink">panel admin</a>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+<script>
+const STORAGE_KEY = 'site-danau-raya';
+const DEFAULT_DATA = {"hero": {"title": "Destinasi Wisata Danau Raya", "sub": "Danau alami yang tenang, dikelilingi pepohonan rimbun — sempurna untuk wisata air dan piknik keluarga."}, "sejarah": {"text": "Danau Raya merupakan danau alami yang terbentuk dari proses geologi dan resapan air sungai di kawasan tersebut. Keberadaan danau ini telah lama menjadi sumber kehidupan utama masyarakat sekitar untuk perikanan tangkap dan irigasi tradisional.", "image": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1200&auto=format&fit=crop"}, "budaya": {"text": "Masyarakat sekitar Danau Raya memiliki tradisi menangkap ikan secara bersama-sama pada musim tertentu, seperti tradisi Melemang atau Bemasak di pinggir danau. Mitos lokal mengenai menjaga kebersihan perairan danau juga diwariskan secara turun-temurun untuk mencegah kerusakan alam.", "image": "https://images.unsplash.com/photo-1439066615861-d1af74d74000?q=80&w=1200&auto=format&fit=crop"}, "dayaTarik": [{"name": "Wisata Air & Perahu", "desc": "Pengunjung dapat menyewa perahu tradisional untuk mengelilingi danau.", "image": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=800&auto=format&fit=crop"}, {"name": "Spot Pemancingan", "desc": "Menjadi magnet bagi pecinta mancing karena ekosistem ikan air tawarnya yang masih terjaga.", "image": "https://images.unsplash.com/photo-1445264718234-016755323b78?q=80&w=800&auto=format&fit=crop"}, {"name": "Suasana Asri", "desc": "Dikelilingi pepohonan rimbun yang cocok untuk tempat piknik keluarga.", "image": "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?q=80&w=800&auto=format&fit=crop"}], "dokumentasi": {"photos": [{"url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=800&auto=format&fit=crop", "caption": "Pemandangan tepi danau alami dengan fasilitas wisata air"}], "videos": []}, "maps": {"address": "Desa Danau Raya, Kecamatan Rupit, Kabupaten Musi Rawas Utara (Muratara), Sumatra Selatan", "lat": -2.539, "lng": 102.906}};
+
+let data = null;
+
+function renderHero(){
+  document.getElementById('heroTitle').textContent = data.hero.title;
+  document.getElementById('heroSub').textContent = data.hero.sub;
+}
+function renderSejarah(){
+  document.getElementById('sejarahText').textContent = data.sejarah.text;
+  document.getElementById('sejarahImg').src = data.sejarah.image;
+}
+function renderBudaya(){
+  document.getElementById('budayaText').textContent = data.budaya.text;
+  document.getElementById('budayaImg').src = data.budaya.image;
+}
+function renderDayaTarik(){
+  const grid = document.getElementById('dayaTarikGrid');
+  grid.innerHTML = '';
+  data.dayaTarik.forEach((item, idx)=>{
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <button class="remove-btn" data-remove-dt="${idx}" title="Hapus" type="button">&times;</button>
+      <button class="small-edit-btn" data-edit-dt="${idx}" title="Edit" type="button">&#9998;</button>
+      <div class="media"><img src="${item.image}" alt="${escapeHtml(item.name)}"></div>
+      <div class="body"><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.desc)}</p></div>
+    `;
+    grid.appendChild(card);
+  });
+}
+function renderDokumentasi(){
+  const gg = document.getElementById('galleryGrid');
+  gg.innerHTML = '';
+  data.dokumentasi.photos.forEach((p, idx)=>{
+    const it = document.createElement('div');
+    it.className = 'item';
+    it.innerHTML = `<button class="remove-btn" data-remove-photo="${idx}" title="Hapus" type="button">&times;</button><img src="${p.url}" alt="${escapeHtml(p.caption||'')}">${p.caption?`<div class="cap">${escapeHtml(p.caption)}</div>`:''}`;
+    gg.appendChild(it);
+  });
+  const vg = document.getElementById('videoGrid');
+  vg.innerHTML = '';
+  data.dokumentasi.videos.forEach((v, idx)=>{
+    const emb = youtubeEmbed(v.url);
+    const el = document.createElement('div');
+    el.className = 'video-item';
+    const frame = emb ? `<iframe src="${emb}" allowfullscreen title="${escapeHtml(v.title)}"></iframe>` : `<video src="${v.url}" controls></video>`;
+    el.innerHTML = `<button class="remove-btn" data-remove-video="${idx}" title="Hapus" type="button">&times;</button><div class="frame">${frame}</div><div class="cap">${escapeHtml(v.title)}</div>`;
+    vg.appendChild(el);
+  });
+}
+function renderMaps(){
+  document.getElementById('mapsFrame').src = `https://maps.google.com/maps?q=${data.maps.lat},${data.maps.lng}&z=14&output=embed`;
+  document.getElementById('mapsAddress').textContent = data.maps.address;
+}
+function renderAll(){ renderHero(); renderSejarah(); renderBudaya(); renderDayaTarik(); renderDokumentasi(); renderMaps(); }
+
+document.getElementById('editSejarahText').addEventListener('click', async ()=>{
+  const r = await openFormModal({title:'Teks sejarah', fields:[{key:'value', label:'Isi', type:'textarea', required:true}], initial:{value:data.sejarah.text}});
+  if(!r) return; data.sejarah.text = r.value; await saveData(STORAGE_KEY, data); renderSejarah();
+});
+document.getElementById('editSejarahImg').addEventListener('click', async ()=>{
+  const r = await openFormModal({title:'Gambar sejarah', fields:[{key:'value', label:'Gambar', type:'image'}], initial:{value:data.sejarah.image}});
+  if(!r) return; data.sejarah.image = r.value || data.sejarah.image; await saveData(STORAGE_KEY, data); renderSejarah();
+});
+document.getElementById('editBudayaText').addEventListener('click', async ()=>{
+  const r = await openFormModal({title:'Teks budaya', fields:[{key:'value', label:'Isi', type:'textarea', required:true}], initial:{value:data.budaya.text}});
+  if(!r) return; data.budaya.text = r.value; await saveData(STORAGE_KEY, data); renderBudaya();
+});
+document.getElementById('editBudayaImg').addEventListener('click', async ()=>{
+  const r = await openFormModal({title:'Gambar budaya', fields:[{key:'value', label:'Gambar', type:'image'}], initial:{value:data.budaya.image}});
+  if(!r) return; data.budaya.image = r.value || data.budaya.image; await saveData(STORAGE_KEY, data); renderBudaya();
+});
+
+document.getElementById('addDayaTarikBtn').addEventListener('click', async ()=>{
+  const r = await openFormModal({
+    title:'Tambah daya tarik',
+    fields:[{key:'name', label:'Nama', type:'text', required:true},{key:'desc', label:'Deskripsi', type:'textarea'},{key:'image', label:'Gambar', type:'image'}]
+  });
+  if(!r) return;
+  data.dayaTarik.push({name:r.name, desc:r.desc, image: r.image || 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=800&auto=format&fit=crop'});
+  await saveData(STORAGE_KEY, data); renderDayaTarik();
+});
+document.getElementById('dayaTarikGrid').addEventListener('click', async (e)=>{
+  const rm = e.target.closest('[data-remove-dt]');
+  const ed = e.target.closest('[data-edit-dt]');
+  if(rm){ data.dayaTarik.splice(+rm.dataset.removeDt,1); await saveData(STORAGE_KEY, data); renderDayaTarik(); }
+  if(ed){
+    const idx = +ed.dataset.editDt; const item = data.dayaTarik[idx];
+    const r = await openFormModal({
+      title:'Edit daya tarik',
+      fields:[{key:'name', label:'Nama', type:'text', required:true},{key:'desc', label:'Deskripsi', type:'textarea'},{key:'image', label:'Gambar', type:'image'}],
+      initial:item
+    });
+    if(!r) return;
+    data.dayaTarik[idx] = {...item, ...r};
+    await saveData(STORAGE_KEY, data); renderDayaTarik();
+  }
+});
+
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const t = btn.dataset.tab;
+    document.getElementById('tabFoto').style.display = t==='foto' ? 'block' : 'none';
+    document.getElementById('tabVideo').style.display = t==='video' ? 'block' : 'none';
+  });
+});
+document.getElementById('addPhotoBtn').addEventListener('click', async ()=>{
+  const r = await openFormModal({title:'Tambah foto dokumentasi', fields:[{key:'url', label:'Gambar', type:'image', required:true},{key:'caption', label:'Keterangan (opsional)', type:'text'}]});
+  if(!r || !r.url) return;
+  data.dokumentasi.photos.push({url:r.url, caption:r.caption});
+  await saveData(STORAGE_KEY, data); renderDokumentasi();
+});
+document.getElementById('galleryGrid').addEventListener('click', async (e)=>{
+  const rm = e.target.closest('[data-remove-photo]');
+  if(rm){ data.dokumentasi.photos.splice(+rm.dataset.removePhoto,1); await saveData(STORAGE_KEY, data); renderDokumentasi(); }
+});
+document.getElementById('addVideoBtn').addEventListener('click', async ()=>{
+  const r = await openFormModal({title:'Tambah video dokumentasi', hint:'Mendukung tautan YouTube (otomatis tertanam) atau tautan langsung file .mp4.', fields:[{key:'title', label:'Judul video', type:'text', required:true},{key:'url', label:'Tautan video', type:'text', required:true}]});
+  if(!r) return;
+  data.dokumentasi.videos.push({title:r.title, url:r.url});
+  await saveData(STORAGE_KEY, data); renderDokumentasi();
+});
+document.getElementById('videoGrid').addEventListener('click', async (e)=>{
+  const rm = e.target.closest('[data-remove-video]');
+  if(rm){ data.dokumentasi.videos.splice(+rm.dataset.removeVideo,1); await saveData(STORAGE_KEY, data); renderDokumentasi(); }
+});
+
+document.getElementById('editMapsBtn').addEventListener('click', async ()=>{
+  const r = await openFormModal({
+    title:'Edit peta',
+    hint:'Buka Google Maps, cari lokasi, klik kanan pada titik lokasi lalu salin koordinatnya.',
+    fields:[{key:'address', label:'Nama / alamat lokasi', type:'text', required:true},{key:'lat', label:'Latitude', type:'text', required:true},{key:'lng', label:'Longitude', type:'text', required:true}],
+    initial:{address:data.maps.address, lat:String(data.maps.lat), lng:String(data.maps.lng)}
+  });
+  if(!r) return;
+  const lat = parseFloat(r.lat), lng = parseFloat(r.lng);
+  if(isNaN(lat) || isNaN(lng)){ toast('Latitude/longitude tidak valid'); return; }
+  data.maps = {address:r.address, lat, lng};
+  await saveData(STORAGE_KEY, data); renderMaps();
+});
+
+document.getElementById('heroTitle').addEventListener('click', async ()=>{
+  if(!isAdmin) return;
+  const r = await openFormModal({title:'Judul halaman', fields:[{key:'value', label:'Judul', type:'text', required:true}], initial:{value:data.hero.title}});
+  if(!r) return; data.hero.title = r.value; await saveData(STORAGE_KEY, data); renderHero();
+});
+
+document.getElementById('footerAdminLink').addEventListener('click', (e)=>{
+  e.preventDefault();
+  if(isAdmin){ window.scrollTo({top:0, behavior:'smooth'}); } else { openLoginModal(); }
+});
+
+onAdminChange((on)=>{
+  document.getElementById('editMapsBtn').style.display = on ? 'inline-flex' : 'none';
+});
+
+document.getElementById('year').textContent = new Date().getFullYear();
+buildTopbar({
+  brandHref:'index.html',
+  backHref:'index.html',
+  backLabel:'Beranda',
+  menuItems:[
+    {id:'sejarah', label:'Sejarah'},
+    {id:'budaya', label:'Budaya'},
+    {id:'daya-tarik', label:'Daya Tarik'},
+    {id:'dokumentasi', label:'Dokumentasi'},
+    {id:'lokasi', label:'Lokasi'}
+  ]
+});
+buildAdminBar();
+loadData(STORAGE_KEY, DEFAULT_DATA).then(d=>{ data = d; renderAll(); });
+</script>
+</body>
+</html>
