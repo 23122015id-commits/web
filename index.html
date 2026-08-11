@@ -21,22 +21,43 @@
             border-radius: 0.75rem;
             z-index: 1;
         }
+        /* Custom scrollbar untuk modal & gallery */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between overflow-x-hidden">
 
     <!-- NAVBAR -->
     <header class="sticky top-0 z-40 glass-card shadow-sm border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-2 cursor-pointer" onclick="navigateTo('home')">
-                <i data-lucide="compass" class="w-8 h-8 text-emerald-600"></i>
-                <span id="nav-brand-name" class="text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-700 bg-clip-text text-transparent">
+                <i data-lucide="compass" class="w-7 h-7 md:w-8 md:h-8 text-emerald-600"></i>
+                <span id="nav-brand-name" class="text-lg md:text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-700 bg-clip-text text-transparent">
                     WisataNusantara
                 </span>
             </div>
+
+            <!-- DESKTOP NAV -->
             <nav class="hidden md:flex items-center space-x-6 font-medium text-slate-600" id="nav-menu">
                 <!-- Injected by JS -->
             </nav>
+
+            <!-- MOBILE MENU BUTTON -->
+            <button onclick="toggleMobileNav()" class="md:hidden text-slate-700 hover:text-emerald-600 p-2 focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- MOBILE NAV DROPDOWN -->
+        <div id="mobile-nav" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-3">
+            <!-- Injected by JS -->
         </div>
     </header>
 
@@ -53,8 +74,8 @@
     </footer>
 
     <!-- MODAL LOGIN -->
-    <div id="login-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
-        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl relative">
+    <div id="login-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl relative">
             <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
@@ -71,11 +92,11 @@
             <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1">Username</label>
-                    <input type="text" id="username" required placeholder="admin" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    <input type="text" id="username" required placeholder="admin" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1">Password</label>
-                    <input type="password" id="password" required placeholder="••••••••" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    <input type="password" id="password" required placeholder="••••••••" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
                 </div>
                 <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 rounded-lg transition shadow-md">
                     Masuk ke Dashboard
@@ -88,12 +109,12 @@
     </div>
 
     <!-- MODAL EDIT DESTINASI & SUB-KONTEN -->
-    <div id="edit-dest-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
-        <div class="bg-white rounded-2xl p-6 max-w-3xl w-full mx-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+    <div id="edit-dest-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl p-6 max-w-3xl w-full shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeEditDestModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
-            <h3 class="text-2xl font-bold text-slate-900 mb-4" id="modal-dest-title">Edit Destinasi Wisata</h3>
+            <h3 class="text-xl md:text-2xl font-bold text-slate-900 mb-4" id="modal-dest-title">Edit Destinasi Wisata</h3>
             
             <form id="edit-dest-form" onsubmit="handleSaveDestinasi(event)" class="space-y-4">
                 <input type="hidden" id="edit-id">
@@ -101,20 +122,25 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Nama Destinasi</label>
-                        <input type="text" id="edit-title" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        <input type="text" id="edit-title" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Kategori</label>
-                        <input type="text" id="edit-category" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        <input type="text" id="edit-category" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
                     </div>
                 </div>
 
-                <!-- PILIH / UPLOAD GAMBAR -->
+                <!-- PILIH DARI /src/img OR UPLOAD GAMBAR -->
                 <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-1">Gambar Utama</label>
-                    <div class="flex gap-2 items-center">
-                        <input type="text" id="edit-image" required placeholder="URL Gambar atau Upload" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                        <label class="cursor-pointer bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap flex items-center gap-1">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Gambar Utama Destinasi</label>
+                    <div class="flex flex-wrap sm:flex-nowrap gap-2 items-center">
+                        <input type="text" id="edit-image" required placeholder="URL / Path Gambar" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
+                        
+                        <button type="button" onclick="openGithubImagePicker('src/img', 'edit-image')" class="w-full sm:w-auto bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-700 px-3 py-2 rounded-lg text-xs font-semibold whitespace-nowrap flex items-center justify-center gap-1">
+                            <i data-lucide="folder" class="w-4 h-4"></i> Pilih /src/img
+                        </button>
+
+                        <label class="w-full sm:w-auto cursor-pointer bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 px-3 py-2 rounded-lg text-xs font-semibold whitespace-nowrap flex items-center justify-center gap-1">
                             <i data-lucide="upload" class="w-4 h-4"></i> Upload File
                             <input type="file" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'edit-image')">
                         </label>
@@ -123,19 +149,19 @@
 
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1">Sejarah</label>
-                    <textarea id="edit-sejarah" rows="3" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
+                    <textarea id="edit-sejarah" rows="3" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm"></textarea>
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1">Budaya & Tradisi</label>
-                    <textarea id="edit-budaya" rows="3" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
+                    <textarea id="edit-budaya" rows="3" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm"></textarea>
                 </div>
 
                 <!-- KOORDINAT MAPS -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
                     <div class="md:col-span-2">
                         <label class="block text-sm font-bold text-slate-800">Koordinat Peta Google Maps / GPS</label>
-                        <p class="text-xs text-slate-500 mb-2">Dapat dicopy langsung dari Google Maps (contoh: Latitude -2.8123, Longitude 102.8123)</p>
+                        <p class="text-xs text-slate-500 mb-2">Dapat dicopy dari Google Maps (contoh: Latitude -2.8123, Longitude 102.8123)</p>
                     </div>
                     <div>
                         <label class="block text-xs font-medium text-slate-700 mb-1">Latitude (Garis Lintang)</label>
@@ -165,69 +191,91 @@
                 </div>
 
                 <div class="flex justify-end gap-3 pt-4 border-t border-slate-100">
-                    <button type="button" onclick="closeEditDestModal()" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-100">Batal</button>
-                    <button type="submit" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium">Simpan Konten</button>
+                    <button type="button" onclick="closeEditDestModal()" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-100 text-sm">Batal</button>
+                    <button type="submit" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm">Simpan Konten</button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- MODAL EDIT PASSWORD USER -->
-    <div id="edit-pass-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
-        <div class="bg-white rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl relative">
+    <div id="edit-pass-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl relative">
             <button onclick="closeEditPassModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
-            <h3 class="text-2xl font-bold text-slate-900 mb-4">Ganti Password Admin</h3>
+            <h3 class="text-xl font-bold text-slate-900 mb-4">Ganti Password Admin</h3>
             <form id="edit-pass-form" onsubmit="handleChangePassword(event)" class="space-y-4">
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1">Password Baru</label>
-                    <input type="password" id="new-password" required minlength="6" placeholder="Minimal 6 karakter" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    <input type="password" id="new-password" required minlength="6" placeholder="Minimal 6 karakter" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1">Konfirmasi Password Baru</label>
-                    <input type="password" id="confirm-password" required minlength="6" placeholder="Ketik ulang password" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    <input type="password" id="confirm-password" required minlength="6" placeholder="Ketik ulang password" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
                 </div>
                 <div class="flex justify-end gap-3 pt-2">
-                    <button type="button" onclick="closeEditPassModal()" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-100">Batal</button>
-                    <button type="submit" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium">Update Password</button>
+                    <button type="button" onclick="closeEditPassModal()" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-100 text-sm">Batal</button>
+                    <button type="submit" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm">Update Password</button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- MODAL TAMBAH USER -->
-    <div id="add-user-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
-        <div class="bg-white rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl relative">
+    <div id="add-user-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl relative">
             <button onclick="closeAddUserModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
-            <h3 class="text-2xl font-bold text-slate-900 mb-4">Tambah User Pengelola</h3>
+            <h3 class="text-xl font-bold text-slate-900 mb-4">Tambah User Pengelola</h3>
             <form id="add-user-form" onsubmit="handleSaveUser(event)" class="space-y-4">
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1">Nama Lengkap</label>
-                    <input type="text" id="user-name" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    <input type="text" id="user-name" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1">Username</label>
-                    <input type="text" id="user-username" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    <input type="text" id="user-username" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1">Password</label>
-                    <input type="password" id="user-password" required minlength="6" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    <input type="password" id="user-password" required minlength="6" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1">Role</label>
-                    <select id="user-role" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    <select id="user-role" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
                         <option value="Editor">Editor</option>
                         <option value="Administrator">Administrator</option>
                     </select>
                 </div>
                 <div class="flex justify-end gap-3 pt-2">
-                    <button type="button" onclick="closeAddUserModal()" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-100">Batal</button>
-                    <button type="submit" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium">Simpan User</button>
+                    <button type="button" onclick="closeAddUserModal()" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-100 text-sm">Batal</button>
+                    <button type="submit" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm">Simpan User</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- MODAL PEMILIH GAMBAR GITHUB (/src/img atau /src/slideimg) -->
+    <div id="github-picker-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl p-6 max-w-2xl w-full shadow-2xl relative max-h-[85vh] flex flex-col">
+            <button onclick="closeGithubPickerModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <h3 class="text-xl font-bold text-slate-900 mb-1" id="picker-title">Pilih Gambar dari Folder GitHub</h3>
+            <p class="text-xs text-slate-500 mb-4" id="picker-folder-name">Folder: /src/img</p>
+
+            <div class="flex-grow overflow-y-auto">
+                <div id="github-image-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <!-- Dynamic images from Github folder -->
+                </div>
+            </div>
+
+            <div class="pt-4 mt-4 border-t border-slate-100 flex justify-between items-center text-xs text-slate-400">
+                <span>Klik gambar untuk memilih</span>
+                <button type="button" onclick="closeGithubPickerModal()" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-100 text-xs font-semibold">Tutup</button>
+            </div>
         </div>
     </div>
 
@@ -242,11 +290,42 @@
             return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
-        // DEFAULT DATA DEFAULTS
+        // FOLDER FAKE / GITHUB MOCKUP FILES SYSTEM
+        const githubRepositoryFiles = {
+            'src/img': [
+                './src/img/bukit-layang.jpg',
+                './src/img/danau-raya.jpg',
+                './src/img/dam-merung.jpg',
+                './src/img/goa-napalicin.jpg',
+                './src/img/pantai-sunsuria.jpg',
+                './src/img/hutan-pinus.jpg',
+                'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+                'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+                'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=800&q=80',
+                'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80'
+            ],
+            'src/slideimg': [
+                './src/slideimg/banner-1.jpg',
+                './src/slideimg/banner-2.jpg',
+                './src/slideimg/banner-3.jpg',
+                'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1600&q=80',
+                'https://images.unsplash.com/photo-1476514525535-ce74f452623d?auto=format&fit=crop&w=1600&q=80',
+                'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80'
+            ]
+        };
+
+        // DEFAULT SLIDER LANDING PAGE IMAGES (/src/slideimg)
+        const defaultSlideImages = [
+            'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1600&q=80',
+            'https://images.unsplash.com/photo-1476514525535-ce74f452623d?auto=format&fit=crop&w=1600&q=80',
+            'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80'
+        ];
+
+        // DEFAULT SETTINGS
         const defaultLandingSettings = {
             title: 'Jelajahi Keindahan Alam Nusantara',
             subtitle: 'Temukan pesona destinasi kebanggaan Bukit Layang, Danau Raya, Dam Merung, dan Goa Napalicin.',
-            bannerImage: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1600&q=80',
+            slideImages: defaultSlideImages,
             brandName: 'WisataNusantara'
         };
 
@@ -323,6 +402,10 @@
         let usersData = JSON.parse(localStorage.getItem('usersData')) || defaultUsers;
         let activeUser = JSON.parse(localStorage.getItem('activeUser')) || null;
 
+        // SLIDER ACTIVE INDEX
+        let currentSlideIndex = 0;
+        let pickerTargetInputId = '';
+
         function saveDataToStorage() {
             localStorage.setItem('landingSettings', JSON.stringify(landingSettings));
             localStorage.setItem('destinationsData', JSON.stringify(destinationsData));
@@ -334,56 +417,114 @@
             }
         }
 
+        // RESPONSIVE MOBILE NAV TOGGLE
+        function toggleMobileNav() {
+            const mobileNav = document.getElementById('mobile-nav');
+            mobileNav.classList.toggle('hidden');
+        }
+
         // NAVBAR & BRAND UPDATE
         function updateNavbar() {
             document.getElementById('nav-brand-name').innerText = landingSettings.brandName;
             document.getElementById('footer-text').innerHTML = `&copy; 2026 ${landingSettings.brandName}. All rights reserved.`;
 
             const nav = document.getElementById('nav-menu');
-            if (activeUser) {
-                nav.innerHTML = `
-                    <button onclick="navigateTo('home')" class="hover:text-emerald-600 transition">Beranda</button>
-                    <a href="#destinasi" onclick="navigateTo('home')" class="hover:text-emerald-600 transition">Destinasi</a>
-                    <button onclick="navigateTo('admin')" class="hover:text-emerald-600 transition font-bold text-emerald-600">Dashboard</button>
-                    <span class="text-xs bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-bold">Halo, ${activeUser.name}</span>
-                    <button onclick="logoutAdmin()" class="text-rose-600 hover:text-rose-700 transition">Keluar</button>
-                `;
-            } else {
-                nav.innerHTML = `
-                    <button onclick="navigateTo('home')" class="hover:text-emerald-600 transition">Beranda</button>
-                    <a href="#destinasi" onclick="navigateTo('home')" class="hover:text-emerald-600 transition">Destinasi</a>
-                    <button onclick="openLoginModal()" class="flex items-center gap-2 bg-emerald-600 text-white px-4 py-2 rounded-full hover:bg-emerald-700 transition shadow-sm">
-                        <i data-lucide="lock" class="w-4 h-4"></i> Admin Login
-                    </button>
-                `;
-            }
+            const mobileNav = document.getElementById('mobile-nav');
+
+            const navItemsHtml = activeUser ? `
+                <button onclick="navigateTo('home')" class="block w-full text-left md:w-auto hover:text-emerald-600 transition py-1">Beranda</button>
+                <a href="#destinasi" onclick="navigateTo('home')" class="block w-full text-left md:w-auto hover:text-emerald-600 transition py-1">Destinasi</a>
+                <button onclick="navigateTo('admin')" class="block w-full text-left md:w-auto hover:text-emerald-600 transition font-bold text-emerald-600 py-1">Dashboard</button>
+                <span class="inline-block text-xs bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-bold my-1">Halo, ${activeUser.name}</span>
+                <button onclick="logoutAdmin()" class="block w-full text-left md:w-auto text-rose-600 hover:text-rose-700 transition py-1">Keluar</button>
+            ` : `
+                <button onclick="navigateTo('home')" class="block w-full text-left md:w-auto hover:text-emerald-600 transition py-1">Beranda</button>
+                <a href="#destinasi" onclick="navigateTo('home')" class="block w-full text-left md:w-auto hover:text-emerald-600 transition py-1">Destinasi</a>
+                <button onclick="openLoginModal()" class="flex items-center gap-2 bg-emerald-600 text-white px-4 py-2 rounded-full hover:bg-emerald-700 transition shadow-sm w-full md:w-auto justify-center">
+                    <i data-lucide="lock" class="w-4 h-4"></i> Admin Login
+                </button>
+            `;
+
+            nav.innerHTML = navItemsHtml;
+            mobileNav.innerHTML = navItemsHtml;
             lucide.createIcons();
         }
 
-        // RENDER HOMEPAGE
+        // SLIDER CONTROL HANDLERS
+        function changeSlide(direction) {
+            const slides = landingSettings.slideImages || defaultSlideImages;
+            if (slides.length === 0) return;
+
+            currentSlideIndex += direction;
+            if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+            if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+
+            updateSlideDisplay();
+        }
+
+        function setSlide(index) {
+            currentSlideIndex = index;
+            updateSlideDisplay();
+        }
+
+        function updateSlideDisplay() {
+            const slides = landingSettings.slideImages || defaultSlideImages;
+            const slideBg = document.getElementById('hero-slide-bg');
+            const indicatorsContainer = document.getElementById('slide-indicators');
+
+            if (slideBg && slides.length > 0) {
+                slideBg.style.backgroundImage = `url('${slides[currentSlideIndex]}')`;
+            }
+
+            if (indicatorsContainer && slides.length > 0) {
+                indicatorsContainer.innerHTML = slides.map((_, idx) => `
+                    <button onclick="setSlide(${idx})" class="w-3 h-3 rounded-full transition-all ${idx === currentSlideIndex ? 'bg-emerald-500 w-8' : 'bg-white/60 hover:bg-white'}"></button>
+                `).join('');
+            }
+        }
+
+        // RENDER HOMEPAGE DENGAN SLIDER /src/slideimg & NAVIGASI TOMBOL KIRI/KANAN
         function renderHome() {
+            const slides = landingSettings.slideImages && landingSettings.slideImages.length > 0 ? landingSettings.slideImages : defaultSlideImages;
             const app = document.getElementById('app-content');
+
             app.innerHTML = `
-                <!-- LANDING HERO -->
-                <section class="relative bg-slate-900 text-white py-24 px-4 overflow-hidden">
-                    <div class="absolute inset-0 opacity-40 bg-cover bg-center" style="background-image: url('${landingSettings.bannerImage}');"></div>
-                    <div class="relative max-w-5xl mx-auto text-center space-y-6">
-                        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">${landingSettings.title}</h1>
-                        <p class="text-lg md:text-xl text-slate-200 max-w-2xl mx-auto">${landingSettings.subtitle}</p>
-                        <a href="#destinasi" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-full font-medium transition shadow-lg">
+                <!-- LANDING HERO WITH SLIDER -->
+                <section class="relative bg-slate-900 text-white py-24 md:py-32 px-4 overflow-hidden min-h-[480px] flex items-center justify-center">
+                    <!-- BACKGROUND SLIDE IMAGE -->
+                    <div id="hero-slide-bg" class="absolute inset-0 opacity-40 bg-cover bg-center transition-all duration-700 ease-in-out" style="background-image: url('${slides[currentSlideIndex]}');"></div>
+                    
+                    <!-- HERO OVERLAY CONTENT -->
+                    <div class="relative z-10 max-w-5xl mx-auto text-center space-y-6">
+                        <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight px-2">${landingSettings.title}</h1>
+                        <p class="text-base sm:text-lg md:text-xl text-slate-200 max-w-2xl mx-auto px-4">${landingSettings.subtitle}</p>
+                        <a href="#destinasi" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-full font-medium transition shadow-lg text-sm sm:text-base">
                             Mulai Eksplorasi <i data-lucide="arrow-down" class="w-4 h-4"></i>
                         </a>
+                    </div>
+
+                    <!-- TOMBOL NAVIGASI SLIDER KIRI & KANAN -->
+                    <button onclick="changeSlide(-1)" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 bg-slate-900/60 hover:bg-emerald-600 text-white p-2.5 sm:p-3 rounded-full backdrop-blur-md border border-white/20 transition shadow-lg focus:outline-none">
+                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                    </button>
+                    <button onclick="changeSlide(1)" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 bg-slate-900/60 hover:bg-emerald-600 text-white p-2.5 sm:p-3 rounded-full backdrop-blur-md border border-white/20 transition shadow-lg focus:outline-none">
+                        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                    </button>
+
+                    <!-- INDIKATOR DOTS SLIDE -->
+                    <div id="slide-indicators" class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+                        <!-- Dots rendered dynamically -->
                     </div>
                 </section>
 
                 <!-- GRID DESTINASI -->
                 <section id="destinasi" class="max-w-7xl mx-auto px-4 py-16">
                     <div class="text-center mb-12">
-                        <h2 class="text-3xl font-bold text-slate-900">Destinasi Wisata Unggulan</h2>
-                        <p class="text-slate-600 mt-2">Jelajahi keindahan alam dan keunikan budaya lokal di setiap destinasi.</p>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Destinasi Wisata Unggulan</h2>
+                        <p class="text-slate-600 text-sm sm:text-base mt-2">Jelajahi keindahan alam dan keunikan budaya lokal di setiap destinasi.</p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                         ${destinationsData.map(item => `
                             <div onclick="navigateToDetail('${item.id}')" class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border border-slate-100 flex flex-col">
                                 <div class="relative h-48 overflow-hidden">
@@ -392,7 +533,7 @@
                                 </div>
                                 <div class="p-5 flex-grow flex flex-col justify-between">
                                     <div>
-                                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-600 transition mb-2">${item.title}</h3>
+                                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition mb-2">${item.title}</h3>
                                         <p class="text-slate-600 text-sm line-clamp-2">${item.sejarah}</p>
                                     </div>
                                     <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-emerald-600 font-semibold text-sm">
@@ -406,6 +547,7 @@
                 </section>
             `;
             updateNavbar();
+            updateSlideDisplay();
             lucide.createIcons();
         }
 
@@ -417,16 +559,16 @@
             const app = document.getElementById('app-content');
             app.innerHTML = `
                 <div class="max-w-5xl mx-auto px-4 py-8 space-y-8">
-                    <button onclick="navigateTo('home')" class="inline-flex items-center gap-2 text-slate-600 hover:text-emerald-600 font-medium transition">
+                    <button onclick="navigateTo('home')" class="inline-flex items-center gap-2 text-slate-600 hover:text-emerald-600 font-medium transition text-sm">
                         <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Beranda
                     </button>
 
-                    <div class="relative h-80 md:h-[400px] rounded-3xl overflow-hidden shadow-lg">
+                    <div class="relative h-64 sm:h-80 md:h-[400px] rounded-3xl overflow-hidden shadow-lg">
                         <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-8">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-6 md:p-8">
                             <div>
                                 <span class="bg-emerald-500 text-white text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wider">${item.category}</span>
-                                <h1 class="text-4xl md:text-5xl font-extrabold text-white mt-2">${item.title}</h1>
+                                <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white mt-2">${item.title}</h1>
                             </div>
                         </div>
                     </div>
@@ -434,30 +576,30 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div class="md:col-span-2 space-y-6">
                             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                                <h3 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
+                                <h3 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
                                     <i data-lucide="book-open" class="text-emerald-600"></i> Sejarah
                                 </h3>
-                                <p class="text-slate-600 leading-relaxed">${item.sejarah}</p>
+                                <p class="text-slate-600 leading-relaxed text-sm sm:text-base">${item.sejarah}</p>
                             </div>
 
                             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                                <h3 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
+                                <h3 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
                                     <i data-lucide="landmark" class="text-emerald-600"></i> Budaya & Tradisi
                                 </h3>
-                                <p class="text-slate-600 leading-relaxed">${item.budaya}</p>
+                                <p class="text-slate-600 leading-relaxed text-sm sm:text-base">${item.budaya}</p>
                             </div>
 
                             <!-- SUB-KONTEN / SUB-FASILITAS -->
                             ${item.subContent && item.subContent.length > 0 ? `
                                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                                    <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                                    <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
                                         <i data-lucide="layers" class="text-emerald-600"></i> Area & Sub-Fasilitas Destinasi
                                     </h3>
                                     <div class="grid grid-cols-1 gap-4">
                                         ${item.subContent.map(sub => `
                                             <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
-                                                <h4 class="font-bold text-slate-800 text-base mb-1">${sub.title}</h4>
-                                                <p class="text-sm text-slate-600">${sub.desc}</p>
+                                                <h4 class="font-bold text-slate-800 text-sm sm:text-base mb-1">${sub.title}</h4>
+                                                <p class="text-xs sm:text-sm text-slate-600">${sub.desc}</p>
                                             </div>
                                         `).join('')}
                                     </div>
@@ -468,7 +610,7 @@
                         <!-- MAPS KOORDINAT INTERAKTIF -->
                         <div class="space-y-6">
                             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
-                                <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
                                     <i data-lucide="map-pin" class="text-emerald-600"></i> Alamat & Peta Lokasi
                                 </h3>
                                 <p class="text-slate-600 text-sm">${item.maps}</p>
@@ -495,63 +637,80 @@
             }, 100);
         }
 
-        // RENDER DASHBOARD ADMIN MET LENGKAP CMS
+        // RENDER DASHBOARD ADMIN
         function renderAdminDashboard() {
             if (!activeUser) {
                 openLoginModal();
                 return;
             }
 
+            const slides = landingSettings.slideImages || defaultSlideImages;
             const app = document.getElementById('app-content');
             app.innerHTML = `
                 <div class="max-w-7xl mx-auto px-4 py-8 space-y-8">
                     <!-- HEADER DASHBOARD -->
                     <div class="flex flex-wrap items-center justify-between gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
                         <div>
-                            <h1 class="text-2xl font-bold text-slate-900">Dashboard CMS Administrator</h1>
-                            <p class="text-slate-500 text-sm">Pengelola: <b>${activeUser.name}</b> (@${activeUser.username})</p>
+                            <h1 class="text-xl sm:text-2xl font-bold text-slate-900">Dashboard CMS Administrator</h1>
+                            <p class="text-slate-500 text-xs sm:text-sm">Pengelola: <b>${activeUser.name}</b> (@${activeUser.username})</p>
                         </div>
-                        <div class="flex gap-2">
-                            <button onclick="openEditPassModal()" class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg transition text-sm font-medium">
+                        <div class="flex gap-2 w-full sm:w-auto">
+                            <button onclick="openEditPassModal()" class="flex-1 sm:flex-initial items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg transition text-xs sm:text-sm font-medium flex">
                                 <i data-lucide="key" class="w-4 h-4"></i> Ganti Password
                             </button>
-                            <button onclick="logoutAdmin()" class="flex items-center gap-2 bg-rose-50 text-rose-600 px-4 py-2 rounded-lg hover:bg-rose-100 transition text-sm font-medium">
+                            <button onclick="logoutAdmin()" class="flex-1 sm:flex-initial items-center justify-center gap-2 bg-rose-50 text-rose-600 px-4 py-2 rounded-lg hover:bg-rose-100 transition text-xs sm:text-sm font-medium flex">
                                 <i data-lucide="log-out" class="w-4 h-4"></i> Keluar
                             </button>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <!-- MANAJEMEN LANDING PAGE & HERO -->
+                        <!-- MANAJEMEN LANDING PAGE & SLIDER /src/slideimg -->
                         <div class="lg:col-span-3 bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
-                            <h3 class="text-xl font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
-                                <i data-lucide="layout" class="text-emerald-600"></i> Pengaturan Halaman Utama (Landing Page)
+                            <h3 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
+                                <i data-lucide="layout" class="text-emerald-600"></i> Pengaturan Landing Page & Slider /src/slideimg
                             </h3>
                             <form onsubmit="handleSaveLandingSettings(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-sm font-medium text-slate-700 mb-1">Nama Brand Website</label>
-                                    <input type="text" id="landing-brand" value="${landingSettings.brandName}" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                    <input type="text" id="landing-brand" value="${landingSettings.brandName}" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-slate-700 mb-1">Judul Hero (Title Banner)</label>
-                                    <input type="text" id="landing-title" value="${landingSettings.title}" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                    <label class="block text-sm font-medium text-slate-700 mb-1">Judul Utama Banner</label>
+                                    <input type="text" id="landing-title" value="${landingSettings.title}" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
                                 </div>
                                 <div class="md:col-span-2">
-                                    <label class="block text-sm font-medium text-slate-700 mb-1">Sub-Judul Hero</label>
-                                    <input type="text" id="landing-subtitle" value="${landingSettings.subtitle}" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                    <label class="block text-sm font-medium text-slate-700 mb-1">Sub-Judul Banner</label>
+                                    <input type="text" id="landing-subtitle" value="${landingSettings.subtitle}" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
                                 </div>
-                                <div class="md:col-span-2">
-                                    <label class="block text-sm font-medium text-slate-700 mb-1">Gambar Banner Hero Header</label>
-                                    <div class="flex gap-2 items-center">
-                                        <input type="text" id="landing-banner" value="${landingSettings.bannerImage}" required class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                                        <label class="cursor-pointer bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap flex items-center gap-1">
-                                            <i data-lucide="upload" class="w-4 h-4"></i> Upload
-                                            <input type="file" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'landing-banner')">
-                                        </label>
+                                
+                                <!-- SLIDE IMAGES LIST MANAGER -->
+                                <div class="md:col-span-2 border-t border-slate-100 pt-4">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <label class="block text-sm font-bold text-slate-800">Daftar Gambar Slider Landing Page (/src/slideimg)</label>
+                                        <div class="flex gap-2">
+                                            <button type="button" onclick="openGithubImagePicker('src/slideimg', 'add-slide-image')" class="text-xs bg-emerald-100 text-emerald-700 hover:bg-emerald-200 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1">
+                                                <i data-lucide="folder-plus" class="w-3.5 h-3.5"></i> Pilih dari /src/slideimg
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="add-slide-image" onchange="addNewSlideFromPicker(this.value)">
+
+                                    <div id="slide-items-container" class="space-y-2">
+                                        ${slides.map((img, idx) => `
+                                            <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl border border-slate-200">
+                                                <img src="${img}" class="w-12 h-12 object-cover rounded-lg border">
+                                                <input type="text" value="${img}" readonly class="slide-url-input w-full px-3 py-1 bg-white border border-slate-300 rounded-md text-xs font-mono">
+                                                <button type="button" onclick="removeSlideImage(${idx})" class="text-rose-500 hover:text-rose-700 p-2">
+                                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                                </button>
+                                            </div>
+                                        `).join('')}
                                     </div>
                                 </div>
-                                <div class="md:col-span-2 flex justify-end">
-                                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-6 py-2 rounded-lg transition shadow-md">
+
+                                <div class="md:col-span-2 flex justify-end pt-2">
+                                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-6 py-2.5 rounded-lg transition shadow-md text-sm w-full md:w-auto">
                                         Simpan Perubahan Landing Page
                                     </button>
                                 </div>
@@ -561,7 +720,7 @@
                         <!-- KELOLA DESTINASI WISATA -->
                         <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
                             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                                <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
                                     <i data-lucide="map" class="text-emerald-600"></i> Konten Destinasi Wisata
                                 </h3>
                                 <button onclick="openAddDestModal()" class="text-xs bg-emerald-600 text-white px-3 py-1.5 rounded-lg hover:bg-emerald-700 transition font-medium flex items-center gap-1">
@@ -570,17 +729,17 @@
                             </div>
                             <div class="divide-y divide-slate-100">
                                 ${destinationsData.map(d => `
-                                    <div class="py-4 flex items-center justify-between gap-4">
+                                    <div class="py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                                         <div class="flex items-center gap-3">
                                             <img src="${d.image}" class="w-12 h-12 rounded-lg object-cover">
                                             <div>
-                                                <h4 class="font-bold text-slate-800">${d.title}</h4>
+                                                <h4 class="font-bold text-slate-800 text-sm sm:text-base">${d.title}</h4>
                                                 <p class="text-xs text-slate-500">${d.category} • <span class="text-emerald-600 font-semibold">${d.subContent ? d.subContent.length : 0} Sub-Konten</span></p>
                                             </div>
                                         </div>
-                                        <div class="flex gap-2">
+                                        <div class="flex gap-2 w-full sm:w-auto justify-end">
                                             <button onclick="openEditDestModal('${d.id}')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded-lg transition flex items-center gap-1">
-                                                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> Edit Konten
+                                                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> Edit
                                             </button>
                                             <button onclick="deleteDestinasi('${d.id}')" class="px-2 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 text-xs font-medium rounded-lg transition" title="Hapus">
                                                 <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
@@ -594,7 +753,7 @@
                         <!-- MANAJEMEN USER -->
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
                             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                                <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
                                     <i data-lucide="users" class="text-emerald-600"></i> Pengelola User
                                 </h3>
                                 <button onclick="openAddUserModal()" class="text-xs bg-emerald-600 text-white px-3 py-1.5 rounded-lg hover:bg-emerald-700 transition flex items-center gap-1">
@@ -624,13 +783,67 @@
             lucide.createIcons();
         }
 
+        // PEMILIH GAMBAR GITHUB MODAL SYSTEM
+        function openGithubImagePicker(folder, targetId) {
+            pickerTargetInputId = targetId;
+            const files = githubRepositoryFiles[folder] || [];
+
+            document.getElementById('picker-title').innerText = `Pilih Gambar dari Folder ${folder}`;
+            document.getElementById('picker-folder-name').innerText = `Folder GitHub: /${folder}`;
+
+            const grid = document.getElementById('github-image-grid');
+            grid.innerHTML = files.map(file => `
+                <div onclick="selectGithubImage('${file}')" class="group border border-slate-200 rounded-xl overflow-hidden hover:border-emerald-500 cursor-pointer bg-slate-50 transition relative">
+                    <div class="h-24 overflow-hidden">
+                        <img src="${file}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                    </div>
+                    <div class="p-2 text-[10px] font-mono text-slate-600 truncate bg-white border-t border-slate-100">
+                        ${file.split('/').pop()}
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('github-picker-modal').classList.remove('hidden');
+        }
+
+        function closeGithubPickerModal() {
+            document.getElementById('github-picker-modal').classList.add('hidden');
+        }
+
+        function selectGithubImage(path) {
+            const targetInput = document.getElementById(pickerTargetInputId);
+            if (targetInput) {
+                targetInput.value = path;
+                // trigger change event jika ada listener
+                targetInput.dispatchEvent(new Event('change'));
+            }
+            closeGithubPickerModal();
+        }
+
+        // ADD NEW SLIDE FROM PICKER
+        function addNewSlideFromPicker(url) {
+            if (!url) return;
+            if (!landingSettings.slideImages) landingSettings.slideImages = [];
+            landingSettings.slideImages.push(url);
+            renderAdminDashboard();
+        }
+
+        function removeSlideImage(index) {
+            if (landingSettings.slideImages && landingSettings.slideImages.length > 1) {
+                landingSettings.slideImages.splice(index, 1);
+                renderAdminDashboard();
+            } else {
+                alert('Minimal harus ada 1 gambar slider!');
+            }
+        }
+
         // NAVIGASI
         function navigateTo(page) {
             if (page === 'home') renderHome();
             else if (page === 'admin') renderAdminDashboard();
         }
 
-        // HANDLE FILE UPLOAD BASE64 (DAPAT MENGGANTI GAMBAR LOKAL)
+        // FILE UPLOAD BASE64 HANDLER
         function handleFileUpload(event, targetInputId) {
             const file = event.target.files[0];
             if (!file) return;
@@ -642,17 +855,16 @@
             reader.readAsDataURL(file);
         }
 
-        // LANDING SETTINGS SAVE
+        // SAVE LANDING PAGE
         function handleSaveLandingSettings(e) {
             e.preventDefault();
             landingSettings.brandName = document.getElementById('landing-brand').value.trim();
             landingSettings.title = document.getElementById('landing-title').value.trim();
             landingSettings.subtitle = document.getElementById('landing-subtitle').value.trim();
-            landingSettings.bannerImage = document.getElementById('landing-banner').value.trim();
 
             saveDataToStorage();
             renderAdminDashboard();
-            alert('Pengaturan Landing Page berhasil diperbarui!');
+            alert('Pengaturan Landing Page & Slider berhasil disimpan!');
         }
 
         // DYNAMIC SUB-CONTENT DOM HANDLERS
@@ -662,8 +874,8 @@
             div.className = 'sub-content-row p-3 bg-slate-50 border border-slate-200 rounded-lg space-y-2 relative';
             div.innerHTML = `
                 <button type="button" onclick="this.parentElement.remove()" class="absolute top-2 right-2 text-rose-500 hover:text-rose-700 text-xs font-bold">Hapus</button>
-                <input type="text" placeholder="Judul Sub-Konten / Sub-Fasilitas" value="${title}" required class="sub-title w-full px-3 py-1.5 rounded-md border border-slate-300 text-sm focus:outline-none">
-                <textarea placeholder="Deskripsi Sub-Konten" rows="2" required class="sub-desc w-full px-3 py-1.5 rounded-md border border-slate-300 text-sm focus:outline-none">${desc}</textarea>
+                <input type="text" placeholder="Judul Sub-Konten / Sub-Fasilitas" value="${title}" required class="sub-title w-full px-3 py-1.5 rounded-md border border-slate-300 text-xs sm:text-sm focus:outline-none">
+                <textarea placeholder="Deskripsi Sub-Konten" rows="2" required class="sub-desc w-full px-3 py-1.5 rounded-md border border-slate-300 text-xs sm:text-sm focus:outline-none">${desc}</textarea>
             `;
             container.appendChild(div);
         }
@@ -766,9 +978,7 @@
             const uInput = document.getElementById('username').value.trim();
             const pInput = document.getElementById('password').value.trim();
 
-            // Hash input password
             const hashedInput = await hashPassword(pInput);
-
             const foundUser = usersData.find(u => u.username === uInput && u.passwordHash === hashedInput);
 
             if (foundUser) {
