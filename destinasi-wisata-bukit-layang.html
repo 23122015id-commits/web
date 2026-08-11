@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Destinasi Wisata Bukit Layang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F5EC;
+  --surface:#FFFFFF;
+  --ink:#1F2A22;
+  --ink-soft:#4B5A4E;
+  --primary:#2F5233;
+  --primary-dark:#203A24;
+  --secondary:#4F86A6;
+  --accent:#E3A857;
+  --line:#D8DFC9;
+  --danger:#B3462C;
+  --radius:14px;
+  --font-display:'Fraunces', serif;
+  --font-body:'Manrope', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+.container{max-width:1120px;margin:0 auto;padding:0 24px;}
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--secondary);
+  font-weight:500;
+}
+h1,h2,h3{font-family:var(--font-display);margin:0;color:var(--ink);}
+h2{font-size:34px;font-weight:600;margin-bottom:14px;}
+h3{font-size:20px;font-weight:600;}
+p{margin:0 0 14px 0;color:var(--ink-soft);}
+
+/* ---------- Top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(242,245,236,0.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1120px;margin:0 auto;}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:600;font-size:18px;}
+.brand svg{width:26px;height:26px;flex-shrink:0;}
+nav.menu{display:flex;gap:4px;flex-wrap:wrap;}
+nav.menu a{
+  font-size:14px;font-weight:600;padding:8px 14px;border-radius:999px;
+  text-decoration:none;color:var(--ink-soft);transition:background .15s,color .15s;
+}
+nav.menu a:hover{background:var(--surface);color:var(--primary);}
+.admin-toggle{
+  font-family:var(--font-mono);font-size:12px;font-weight:500;
+  border:1px solid var(--line);background:var(--surface);
+  padding:7px 14px;border-radius:999px;color:var(--ink-soft);
+  display:flex;align-items:center;gap:6px;white-space:nowrap;
+}
+.admin-toggle.on{background:var(--primary);color:#fff;border-color:var(--primary);}
+.topbar-right{display:flex;align-items:center;gap:10px;}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#EAF1E3 0%,#F2F5EC 100%);padding:86px 0 0;}
+.hero-inner{max-width:760px;margin:0 auto;text-align:center;padding:0 24px 64px;position:relative;z-index:2;}
+.hero .eyebrow{justify-content:center;display:flex;align-items:center;gap:8px;margin-bottom:18px;}
+.hero h1{font-size:56px;line-height:1.05;font-weight:700;letter-spacing:-0.01em;}
+.hero .sub{font-size:18px;color:var(--ink-soft);max-width:560px;margin:20px auto 0;}
+.kite{position:absolute;width:64px;opacity:.9;animation:float 7s ease-in-out infinite;}
+.kite.k1{top:60px;left:8%;animation-delay:0s;}
+.kite.k2{top:130px;right:10%;width:44px;animation-delay:2.2s;}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-4deg);}50%{transform:translateY(-16px) rotate(4deg);}}
+.hills{width:100%;display:block;line-height:0;}
+
+/* editable content section rhythm */
+section.content{padding:72px 0;position:relative;}
+section.content.alt{background:var(--surface);}
+.section-head{max-width:640px;margin-bottom:36px;}
+.divider{display:block;width:100%;line-height:0;margin-top:-1px;}
+
+/* Sejarah / Budaya layout */
+.split{display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:center;}
+.split .media{border-radius:var(--radius);overflow:hidden;background:var(--line);aspect-ratio:4/3;position:relative;}
+.split .media img{width:100%;height:100%;object-fit:cover;}
+@media(max-width:800px){.split{grid-template-columns:1fr;}.split .media{order:-1;}}
+
+/* Aktivitas */
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;position:relative;}
+.card .media{aspect-ratio:4/3;background:var(--line);overflow:hidden;}
+.card .media img{width:100%;height:100%;object-fit:cover;}
+.card .body{padding:16px 18px 18px;}
+.card h3{font-size:17px;margin-bottom:6px;}
+.card p{font-size:14px;margin:0;}
+
+/* Dokumentasi */
+.tabs{display:flex;gap:6px;margin-bottom:24px;}
+.tab-btn{padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:13px;font-weight:600;color:var(--ink-soft);}
+.tab-btn.active{background:var(--primary);border-color:var(--primary);color:#fff;}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;}
+.gallery .item{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1/1;background:var(--line);}
+.gallery .item img{width:100%;height:100%;object-fit:cover;}
+.videos{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
+.video-item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+.video-item .frame{aspect-ratio:16/9;background:#000;}
+.video-item .frame iframe,.video-item .frame video{width:100%;height:100%;border:0;}
+.video-item .cap{padding:10px 14px;font-size:13px;font-weight:600;}
+
+/* Maps */
+.map-wrap{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);aspect-ratio:16/7;background:var(--line);}
+.map-wrap iframe{width:100%;height:100%;border:0;}
+.map-address{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:14px;color:var(--ink-soft);font-family:var(--font-mono);}
+
+/* Footer */
+footer{background:var(--primary-dark);color:#DCE7DC;padding:36px 0;font-size:13px;}
+footer .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+footer a{opacity:.8;text-decoration:none;font-family:var(--font-mono);font-size:12px;}
+footer a:hover{opacity:1;text-decoration:underline;}
+
+/* ---------- Admin editing affordances ---------- */
+.admin-mode [data-edit]{outline:1.5px dashed rgba(47,82,51,0.35);outline-offset:4px;border-radius:6px;position:relative;}
+.edit-btn{
+  position:absolute;top:-14px;right:-14px;z-index:5;
+  width:30px;height:30px;border-radius:50%;background:var(--primary);color:#fff;
+  border:2px solid var(--bg);display:none;align-items:center;justify-content:center;font-size:14px;
+}
+.admin-mode [data-edit] > .edit-btn,.admin-mode .edit-btn-standalone{display:flex;}
+.add-btn{
+  border:1.5px dashed var(--primary);background:transparent;color:var(--primary);
+  border-radius:var(--radius);padding:14px;font-weight:600;font-size:14px;
+  display:none;align-items:center;justify-content:center;gap:8px;width:100%;min-height:120px;
+}
+.admin-mode .add-btn{display:flex;}
+.remove-btn{
+  position:absolute;top:8px;right:8px;z-index:5;width:26px;height:26px;border-radius:50%;
+  background:var(--danger);color:#fff;border:none;display:none;align-items:center;justify-content:center;font-size:13px;
+}
+.admin-mode .remove-btn{display:flex;}
+[contenteditable="true"]{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;background:#FFF8EA;}
+
+/* Admin bar */
+.admin-bar{
+  position:fixed;left:0;right:0;bottom:0;z-index:200;background:var(--primary-dark);color:#fff;
+  padding:12px 24px;display:none;align-items:center;justify-content:space-between;gap:16px;font-size:13px;
+}
+.admin-mode .admin-bar{display:flex;}
+.admin-bar .msg{font-family:var(--font-mono);opacity:.85;}
+.admin-bar .actions{display:flex;gap:10px;}
+.btn{border-radius:999px;padding:9px 18px;font-size:13px;font-weight:600;border:none;}
+.btn-primary{background:var(--accent);color:#2A1E00;}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.35);}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(20,26,20,0.55);z-index:300;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.show{display:flex;}
+.modal{background:var(--surface);border-radius:16px;padding:28px;max-width:440px;width:100%;max-height:86vh;overflow:auto;}
+.modal h3{margin-bottom:6px;}
+.modal .hint{font-size:13px;color:var(--ink-soft);margin-bottom:16px;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--ink-soft);margin-bottom:6px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.05em;}
+.field input[type=text],.field input[type=password],.field input[type=url],.field textarea{
+  width:100%;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:14px;background:var(--bg);
+}
+.field textarea{min-height:90px;resize:vertical;}
+.field input[type=file]{width:100%;font-size:13px;}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;}
+.err{color:var(--danger);font-size:13px;margin-top:6px;display:none;}
+.menu-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);}
+.menu-row input[type=text]{flex:1;border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:13px;}
+.icon-sm-btn{width:28px;height:28px;border-radius:6px;border:1px solid var(--line);background:var(--bg);font-size:12px;display:flex;align-items:center;justify-content:center;}
+.toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-size:13px;z-index:400;opacity:0;transition:opacity .25s;pointer-events:none;}
+.toast.show{opacity:1;}
+@media(max-width:720px){
+  .hero h1{font-size:38px;}
+  nav.menu{display:none;}
+  h2{font-size:26px;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M3 17 L12 4 L21 17 Z" fill="#2F5233"/><path d="M3 20 L12 10 L21 20 Z" fill="#4F86A6" opacity="0.85"/></svg>
+      <span>Bukit Layang</span>
+    </div>
+    <nav class="menu" id="mainMenu"></nav>
+    <div class="topbar-right">
+      <button class="admin-toggle" id="adminToggleBtn" type="button">masuk admin</button>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <img class="kite k1" alt="" src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 70'%3E%3Cpath d='M30 2 L58 30 L30 58 L2 30 Z' fill='%23E3A857' stroke='%232F5233' stroke-width='2'/%3E%3Cline x1='30' y1='58' x2='30' y2='70' stroke='%234B5A4E' stroke-width='1.5'/%3E%3C/svg%3E">
+  <img class="kite k2" alt="" src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 70'%3E%3Cpath d='M30 2 L58 30 L30 58 L2 30 Z' fill='%234F86A6' stroke='%232F5233' stroke-width='2'/%3E%3Cline x1='30' y1='58' x2='30' y2='70' stroke='%234B5A4E' stroke-width='1.5'/%3E%3C/svg%3E">
+  <div class="hero-inner">
+    <div class="eyebrow"><span>&#9660; wisata alam &middot; jawa barat</span></div>
+    <h1 data-edit="hero.title" id="heroTitle">Destinasi Wisata Bukit Layang</h1>
+    <div class="edit-btn" data-action="edit-hero" style="position:static;display:none;"></div>
+    <p class="sub" id="heroSub">Naik ke puncak, biarkan angin membawa layang-layangmu, dan temukan cerita di balik setiap lembah.</p>
+  </div>
+  <svg class="hills" viewBox="0 0 1200 140" preserveAspectRatio="none">
+    <path d="M0,80 C150,20 300,120 500,60 C700,10 850,110 1050,50 C1150,25 1200,60 1200,60 L1200,140 L0,140 Z" fill="#DCE9CE"/>
+    <path d="M0,110 C200,60 380,140 600,90 C820,45 1000,130 1200,90 L1200,140 L0,140 Z" fill="#C3D9AE"/>
+    <path d="M0,140 C250,110 450,140 700,120 C900,105 1050,140 1200,125 L1200,140 L0,140 Z" fill="#2F5233"/>
+  </svg>
+</header>
+
+<section class="content" id="sejarah">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">01 &middot; asal usul</div>
+      <h2>Sejarah</h2>
+    </div>
+    <div class="split">
+      <div data-edit="sejarah.text">
+        <div class="edit-btn" data-action="edit-sejarah-text"><i>&#9998;</i></div>
+        <p id="sejarahText"></p>
+      </div>
+      <div class="media" data-edit="sejarah.image">
+        <div class="edit-btn" data-action="edit-sejarah-image"><i>&#9998;</i></div>
+        <img id="sejarahImg" alt="Sejarah Bukit Layang">
+      </div>
+    </div>
+  </div>
+</section>
+
+<svg class="divider" viewBox="0 0 1200 60" preserveAspectRatio="none" style="height:60px;"><path d="M0,30 C300,60 900,0 1200,30 L1200,60 L0,60 Z" fill="var(--surface)"/></svg>
+
+<section class="content alt" id="budaya">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">02 &middot; tradisi setempat</div>
+      <h2>Budaya</h2>
+    </div>
+    <div class="split">
+      <div class="media" data-edit="budaya.image">
+        <div class="edit-btn" data-action="edit-budaya-image"><i>&#9998;</i></div>
+        <img id="budayaImg" alt="Budaya Bukit Layang">
+      </div>
+      <div data-edit="budaya.text">
+        <div class="edit-btn" data-action="edit-budaya-text"><i>&#9998;</i></div>
+        <p id="budayaText"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content" id="aktivitas">
+  <div class="container">
+    <div class="section-head" style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;">
+      <div>
+        <div class="eyebrow">03 &middot; hal yang bisa dilakukan</div>
+        <h2>Aktivitas Wisata</h2>
+      </div>
+    </div>
+    <div class="grid-cards" id="aktivitasGrid"></div>
+    <button class="add-btn" id="addAktivitasBtn" type="button" style="margin-top:16px;">+ tambah aktivitas</button>
+  </div>
+</section>
+
+<svg class="divider" viewBox="0 0 1200 60" preserveAspectRatio="none" style="height:60px;"><path d="M0,30 C300,0 900,60 1200,30 L1200,60 L0,60 Z" fill="var(--surface)"/></svg>
+
+<section class="content alt" id="dokumentasi">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">04 &middot; jejak kunjungan</div>
+      <h2>Dokumentasi</h2>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="foto" type="button">Foto</button>
+      <button class="tab-btn" data-tab="video" type="button">Video</button>
+    </div>
+    <div id="tabFoto">
+      <div class="gallery" id="galleryGrid"></div>
+      <button class="add-btn" id="addPhotoBtn" type="button" style="margin-top:14px;">+ tambah foto</button>
+    </div>
+    <div id="tabVideo" style="display:none;">
+      <div class="videos" id="videoGrid"></div>
+      <button class="add-btn" id="addVideoBtn" type="button" style="margin-top:14px;">+ tambah video</button>
+    </div>
+  </div>
+</section>
+
+<section class="content" id="maps">
+  <div class="container">
+    <div class="section-head" style="display:flex;justify-content:space-between;align-items:flex-end;">
+      <div>
+        <div class="eyebrow">05 &middot; cara ke sini</div>
+        <h2>Lokasi &amp; Peta</h2>
+      </div>
+      <div class="edit-btn-standalone" style="position:static;display:none;">
+        <button class="btn btn-ghost" id="editMapsBtn" type="button" style="border-color:var(--line);color:var(--primary);">edit peta</button>
+      </div>
+    </div>
+    <div class="map-wrap">
+      <iframe id="mapsFrame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Peta lokasi Bukit Layang"></iframe>
+    </div>
+    <div class="map-address"><span>&#128205;</span><span id="mapsAddress"></span></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>&copy; <span id="year"></span> Destinasi Wisata Bukit Layang</span>
+    <a href="#" id="footerAdminLink">panel admin</a>
+  </div>
+</footer>
+
+<div class="admin-bar">
+  <span class="msg">mode admin aktif &mdash; klik ikon <i>&#9998;</i> untuk mengubah konten</span>
+  <div class="actions">
+    <button class="btn btn-ghost" id="exitAdminBtn" type="button">keluar admin</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Login modal -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <h3>Masuk sebagai admin</h3>
+    <p class="hint">Masukkan kata sandi admin untuk mengedit menu, teks, gambar, video, dan peta.</p>
+    <div class="field">
+      <label for="pwInput">Kata sandi</label>
+      <input type="password" id="pwInput" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
+      <div class="err" id="pwErr">Kata sandi salah, coba lagi.</div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" style="color:var(--ink-soft);border-color:var(--line);" id="loginCancel">batal</button>
+      <button class="btn btn-primary" id="loginSubmit">masuk</button>
+    </div>
+  </div>
+</div>
+
+<!-- Generic text edit modal -->
+<div class="modal-overlay" id="textModal">
+  <div class="modal">
+    <h3 id="textModalTitle">Edit teks</h3>
+    <div class="field"><textarea id="textModalArea"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" style="color:var(--ink-soft);border-color:var(--line);" data-close="textModal">batal</button>
+      <button class="btn btn-primary" id="textModalSave">simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Image edit modal -->
+<div class="modal-overlay" id="imageModal">
+  <div class="modal">
+    <h3 id="imageModalTitle">Ganti gambar</h3>
+    <p class="hint">Unggah file gambar, atau tempel tautan URL gambar. Untuk hasil terbaik gunakan gambar di bawah 1&nbsp;MB.</p>
+    <div class="field">
+      <label>Unggah file</label>
+      <input type="file" id="imageModalFile" accept="image/*">
+    </div>
+    <div class="field">
+      <label>atau tautan URL gambar</label>
+      <input type="url" id="imageModalUrl" placeholder="https://...">
+    </div>
+    <div class="err" id="imageModalErr">Ukuran gambar terlalu besar, gunakan tautan URL sebagai gantinya.</div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" style="color:var(--ink-soft);border-color:var(--line);" data-close="imageModal">batal</button>
+      <button class="btn btn-primary" id="imageModalSave">simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Activity edit modal -->
+<div class="modal-overlay" id="actModal">
+  <div class="modal">
+    <h3 id="actModalTitle">Aktivitas</h3>
+    <div class="field"><label>Nama aktivitas</label><input type="text" id="actName" placeholder="Contoh: Trekking Pagi"></div>
+    <div class="field"><label>Deskripsi singkat</label><textarea id="actDesc" placeholder="Ceritakan aktivitas ini..."></textarea></div>
+    <div class="field"><label>Unggah gambar</label><input type="file" id="actFile" accept="image/*"></div>
+    <div class="field"><label>atau tautan URL gambar</label><input type="url" id="actUrl" placeholder="https://..."></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" style="color:var(--ink-soft);border-color:var(--line);" data-close="actModal">batal</button>
+      <button class="btn btn-primary" id="actModalSave">simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Photo doc modal -->
+<div class="modal-overlay" id="photoModal">
+  <div class="modal">
+    <h3>Tambah foto dokumentasi</h3>
+    <div class="field"><label>Unggah file</label><input type="file" id="photoFile" accept="image/*"></div>
+    <div class="field"><label>atau tautan URL gambar</label><input type="url" id="photoUrl" placeholder="https://..."></div>
+    <div class="field"><label>Keterangan (opsional)</label><input type="text" id="photoCaption" placeholder="Keterangan foto"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" style="color:var(--ink-soft);border-color:var(--line);" data-close="photoModal">batal</button>
+      <button class="btn btn-primary" id="photoModalSave">simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Video doc modal -->
+<div class="modal-overlay" id="videoModal">
+  <div class="modal">
+    <h3>Tambah video dokumentasi</h3>
+    <div class="field"><label>Judul video</label><input type="text" id="videoTitle" placeholder="Contoh: Sunrise di Puncak Bukit Layang"></div>
+    <div class="field"><label>Tautan video</label><input type="url" id="videoUrl" placeholder="Tempel URL YouTube atau file .mp4"></div>
+    <p class="hint" style="margin-bottom:0;">Mendukung tautan YouTube (otomatis tertanam) atau tautan langsung ke file video (.mp4).</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" style="color:var(--ink-soft);border-color:var(--line);" data-close="videoModal">batal</button>
+      <button class="btn btn-primary" id="videoModalSave">simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Menu edit modal -->
+<div class="modal-overlay" id="menuModal">
+  <div class="modal">
+    <h3>Kelola menu</h3>
+    <p class="hint">Ubah nama menu, urutkan, atau sembunyikan dari tampilan pengunjung.</p>
+    <div id="menuRows"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" style="color:var(--ink-soft);border-color:var(--line);" data-close="menuModal">batal</button>
+      <button class="btn btn-primary" id="menuModalSave">simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Maps edit modal -->
+<div class="modal-overlay" id="mapsModal">
+  <div class="modal">
+    <h3>Edit peta</h3>
+    <div class="field"><label>Nama / alamat lokasi</label><input type="text" id="mapsAddressInput" placeholder="Bukit Layang, Jawa Barat"></div>
+    <div class="field"><label>Latitude</label><input type="text" id="mapsLat" placeholder="-6.55"></div>
+    <div class="field"><label>Longitude</label><input type="text" id="mapsLng" placeholder="106.85"></div>
+    <p class="hint">Buka Google Maps, cari lokasi, klik kanan pada titik lokasi lalu salin koordinatnya ke sini.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" style="color:var(--ink-soft);border-color:var(--line);" data-close="mapsModal">batal</button>
+      <button class="btn btn-primary" id="mapsModalSave">simpan</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'site-content';
+const ADMIN_PASSWORD = 'bukitlayang2026';
+
+const DEFAULT_DATA = {
+  menu: [
+    {id:'sejarah', label:'Sejarah', visible:true},
+    {id:'budaya', label:'Budaya', visible:true},
+    {id:'aktivitas', label:'Aktivitas Wisata', visible:true},
+    {id:'dokumentasi', label:'Dokumentasi', visible:true},
+    {id:'maps', label:'Lokasi', visible:true}
+  ],
+  hero: {
+    title:'Destinasi Wisata Bukit Layang',
+    sub:'Naik ke puncak, biarkan angin membawa layang-layangmu, dan temukan cerita di balik setiap lembah.'
+  },
+  sejarah: {
+    text:'Konon nama Bukit Layang berasal dari kebiasaan warga sekitar yang sejak puluhan tahun lalu menjadikan puncak bukit ini sebagai tempat menerbangkan layang-layang saat musim kemarau tiba. Berkat angin yang stabil dan pemandangan lembah yang terbuka, tempat ini perlahan dikenal luas dan berkembang menjadi destinasi wisata alam yang menawarkan panorama matahari terbit dan terbenam. Teks ini adalah contoh, silakan admin ubah dengan sejarah yang sebenarnya.',
+    image:'https://images.unsplash.com/photo-1500534623283-312aade485b7?q=80&w=1200&auto=format&fit=crop'
+  },
+  budaya: {
+    text:'Masyarakat sekitar Bukit Layang masih menjaga tradisi syukuran panen dan festival layang-layang tahunan yang digelar setiap musim kemarau. Gotong royong menjadi nilai yang kuat, terlihat dari cara warga bergiliran menjaga jalur pendakian dan menyambut wisatawan dengan keramahan khas pedesaan. Teks ini adalah contoh, silakan admin ubah dengan budaya yang sebenarnya.',
+    image:'https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1200&auto=format&fit=crop'
+  },
+  aktivitas: [
+    {name:'Trekking Pagi', desc:'Jalur pendakian ringan menuju puncak, cocok untuk pemula dan keluarga.', image:'https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=800&auto=format&fit=crop'},
+    {name:'Berburu Foto Sunrise', desc:'Spot terbaik menyaksikan matahari terbit di atas lautan awan.', image:'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=800&auto=format&fit=crop'},
+    {name:'Menerbangkan Layang-layang', desc:'Angin bukit yang stabil membuat tempat ini ideal untuk bermain layang-layang.', image:'https://images.unsplash.com/photo-1533050487297-09b450131914?q=80&w=800&auto=format&fit=crop'},
+    {name:'Berkemah', desc:'Area camping dengan pemandangan lembah, cocok untuk akhir pekan bersama teman.', image:'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?q=80&w=800&auto=format&fit=crop'}
+  ],
+  dokumentasi: {
+    photos: [
+      {url:'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=800&auto=format&fit=crop', caption:'Pemandangan lembah dari puncak'},
+      {url:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=800&auto=format&fit=crop', caption:'Jalur trekking'},
+      {url:'https://images.unsplash.com/photo-1500534623283-312aade485b7?q=80&w=800&auto=format&fit=crop', caption:'Golden hour di Bukit Layang'}
+    ],
+    videos: []
+  },
+  maps: {
+    address:'Bukit Layang, Jawa Barat, Indonesia',
+    lat:-6.55,
+    lng:106.85
+  }
+};
+
+let data = null;
+let isAdmin = false;
+let activeMenuId = null;
+
+function clone(o){return JSON.parse(JSON.stringify(o));}
+
+async function loadData(){
+  try{
+    const res = await window.storage.get(STORAGE_KEY, true);
+    if(res && res.value){
+      data = JSON.parse(res.value);
+      return;
+    }
+  }catch(e){}
+  data = clone(DEFAULT_DATA);
+  try{ await window.storage.set(STORAGE_KEY, JSON.stringify(data), true); }catch(e){}
+}
+
+async function persist(){
+  try{
+    const r = await window.storage.set(STORAGE_KEY, JSON.stringify(data), true);
+    if(!r) throw new Error('no result');
+    showToast('Perubahan tersimpan');
+  }catch(e){
+    showToast('Gagal menyimpan, coba lagi');
+  }
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(showToast._tm);
+  showToast._tm = setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+function openModal(id){document.getElementById(id).classList.add('show');}
+function closeModal(id){document.getElementById(id).classList.remove('show');}
+document.querySelectorAll('[data-close]').forEach(b=>{
+  b.addEventListener('click', ()=>closeModal(b.dataset.close));
+});
+document.querySelectorAll('.modal-overlay').forEach(ov=>{
+  ov.addEventListener('click', (e)=>{ if(e.target===ov) ov.classList.remove('show'); });
+});
+
+function fileToBase64(file){
+  return new Promise((resolve,reject)=>{
+    const r = new FileReader();
+    r.onload = ()=>resolve(r.result);
+    r.onerror = ()=>reject(new Error('read failed'));
+    r.readAsDataURL(file);
+  });
+}
+
+/* ---------------- render ---------------- */
+function renderMenu(){
+  const nav = document.getElementById('mainMenu');
+  nav.innerHTML = '';
+  data.menu.filter(m=>m.visible!==false).forEach(m=>{
+    const a = document.createElement('a');
+    a.href = '#' + m.id;
+    a.textContent = m.label;
+    nav.appendChild(a);
+  });
+}
+
+function renderHero(){
+  document.getElementById('heroTitle').textContent = data.hero.title;
+  document.getElementById('heroSub').textContent = data.hero.sub;
+}
+
+function renderSejarah(){
+  document.getElementById('sejarahText').textContent = data.sejarah.text;
+  document.getElementById('sejarahImg').src = data.sejarah.image;
+}
+
+function renderBudaya(){
+  document.getElementById('budayaText').textContent = data.budaya.text;
+  document.getElementById('budayaImg').src = data.budaya.image;
+}
+
+function renderAktivitas(){
+  const grid = document.getElementById('aktivitasGrid');
+  grid.innerHTML = '';
+  data.aktivitas.forEach((item, idx)=>{
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <button class="remove-btn" data-remove-act="${idx}" title="Hapus">&times;</button>
+      <button class="edit-btn" style="display:none;top:8px;right:44px;position:absolute;" data-edit-act="${idx}"><i>&#9998;</i></button>
+      <div class="media"><img src="${item.image}" alt="${item.name}"></div>
+      <div class="body"><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.desc)}</p></div>
+    `;
+    if(isAdmin) card.querySelector('.edit-btn').style.display = 'flex';
+    grid.appendChild(card);
+  });
+}
+
+function youtubeEmbed(url){
+  let id = null;
+  let m = url.match(/(?:youtu\.be\/|v=)([\w-]{11})/);
+  if(m) id = m[1];
+  return id ? `https://www.youtube.com/embed/${id}` : null;
+}
+
+function renderDokumentasi(){
+  const gg = document.getElementById('galleryGrid');
+  gg.innerHTML = '';
+  data.dokumentasi.photos.forEach((p, idx)=>{
+    const it = document.createElement('div');
+    it.className = 'item';
+    it.innerHTML = `<button class="remove-btn" data-remove-photo="${idx}" title="Hapus">&times;</button><img src="${p.url}" alt="${escapeHtml(p.caption||'')}">`;
+    gg.appendChild(it);
+  });
+  const vg = document.getElementById('videoGrid');
+  vg.innerHTML = '';
+  data.dokumentasi.videos.forEach((v, idx)=>{
+    const emb = youtubeEmbed(v.url);
+    const el = document.createElement('div');
+    el.className = 'video-item';
+    el.style.position = 'relative';
+    const frame = emb
+      ? `<iframe src="${emb}" allowfullscreen title="${escapeHtml(v.title)}"></iframe>`
+      : `<video src="${v.url}" controls></video>`;
+    el.innerHTML = `<button class="remove-btn" data-remove-video="${idx}" title="Hapus">&times;</button><div class="frame">${frame}</div><div class="cap">${escapeHtml(v.title)}</div>`;
+    vg.appendChild(el);
+  });
+}
+
+function renderMaps(){
+  const src = `https://maps.google.com/maps?q=${data.maps.lat},${data.maps.lng}&z=14&output=embed`;
+  document.getElementById('mapsFrame').src = src;
+  document.getElementById('mapsAddress').textContent = data.maps.address;
+}
+
+function escapeHtml(s){
+  const d = document.createElement('div');
+  d.textContent = s == null ? '' : s;
+  return d.innerHTML;
+}
+
+function renderAll(){
+  renderMenu();
+  renderHero();
+  renderSejarah();
+  renderBudaya();
+  renderAktivitas();
+  renderDokumentasi();
+  renderMaps();
+}
+
+/* ---------------- admin mode ---------------- */
+function setAdmin(on){
+  isAdmin = on;
+  document.body.classList.toggle('admin-mode', on);
+  document.getElementById('adminToggleBtn').textContent = on ? 'mode admin' : 'masuk admin';
+  document.getElementById('adminToggleBtn').classList.toggle('on', on);
+  document.querySelectorAll('.edit-btn-standalone').forEach(el=>el.style.display = on ? 'block' : 'none');
+  renderAktivitas();
+}
+
+document.getElementById('adminToggleBtn').addEventListener('click', ()=>{
+  if(isAdmin){ setAdmin(false); } else { openModal('loginModal'); }
+});
+document.getElementById('footerAdminLink').addEventListener('click', (e)=>{
+  e.preventDefault();
+  if(isAdmin){ document.getElementById('adminToggleBtn').scrollIntoView({behavior:'smooth'}); }
+  else openModal('loginModal');
+});
+document.getElementById('exitAdminBtn').addEventListener('click', ()=>setAdmin(false));
+document.getElementById('loginCancel').addEventListener('click', ()=>closeModal('loginModal'));
+document.getElementById('loginSubmit').addEventListener('click', ()=>{
+  const val = document.getElementById('pwInput').value;
+  if(val === ADMIN_PASSWORD){
+    document.getElementById('pwErr').style.display = 'none';
+    document.getElementById('pwInput').value = '';
+    closeModal('loginModal');
+    setAdmin(true);
+  }else{
+    document.getElementById('pwErr').style.display = 'block';
+  }
+});
+document.getElementById('pwInput').addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter') document.getElementById('loginSubmit').click();
+});
+
+/* ---------------- hero edit ---------------- */
+document.getElementById('heroTitle').addEventListener('click', ()=>{
+  if(!isAdmin) return;
+  openTextModal('Judul utama', data.hero.title, async (val)=>{ data.hero.title = val; await persist(); renderHero(); });
+});
+document.getElementById('heroSub').addEventListener('click', ()=>{
+  if(!isAdmin) return;
+  openTextModal('Subjudul', data.hero.sub, async (val)=>{ data.hero.sub = val; await persist(); renderHero(); });
+});
+
+/* ---------------- generic text modal ---------------- */
+let textModalCb = null;
+function openTextModal(title, value, cb){
+  document.getElementById('textModalTitle').textContent = title;
+  document.getElementById('textModalArea').value = value;
+  textModalCb = cb;
+  openModal('textModal');
+}
+document.getElementById('textModalSave').addEventListener('click', async ()=>{
+  const val = document.getElementById('textModalArea').value.trim();
+  closeModal('textModal');
+  if(textModalCb) await textModalCb(val);
+});
+
+/* ---------------- generic image modal ---------------- */
+let imageModalCb = null;
+function openImageModal(title, cb){
+  document.getElementById('imageModalTitle').textContent = title;
+  document.getElementById('imageModalFile').value = '';
+  document.getElementById('imageModalUrl').value = '';
+  document.getElementById('imageModalErr').style.display = 'none';
+  imageModalCb = cb;
+  openModal('imageModal');
+}
+document.getElementById('imageModalSave').addEventListener('click', async ()=>{
+  const file = document.getElementById('imageModalFile').files[0];
+  const url = document.getElementById('imageModalUrl').value.trim();
+  let finalUrl = url;
+  if(file){
+    if(file.size > 1.6*1024*1024){
+      document.getElementById('imageModalErr').style.display = 'block';
+      return;
+    }
+    try{ finalUrl = await fileToBase64(file); }catch(e){ showToast('Gagal membaca file'); return; }
+  }
+  if(!finalUrl){ showToast('Pilih file atau isi tautan URL'); return; }
+  closeModal('imageModal');
+  if(imageModalCb) await imageModalCb(finalUrl);
+});
+
+document.querySelector('[data-action="edit-sejarah-text"]').addEventListener('click', ()=>{
+  openTextModal('Teks sejarah', data.sejarah.text, async (val)=>{ data.sejarah.text = val; await persist(); renderSejarah(); });
+});
+document.querySelector('[data-action="edit-sejarah-image"]').addEventListener('click', ()=>{
+  openImageModal('Gambar sejarah', async (val)=>{ data.sejarah.image = val; await persist(); renderSejarah(); });
+});
+document.querySelector('[data-action="edit-budaya-text"]').addEventListener('click', ()=>{
+  openTextModal('Teks budaya', data.budaya.text, async (val)=>{ data.budaya.text = val; await persist(); renderBudaya(); });
+});
+document.querySelector('[data-action="edit-budaya-image"]').addEventListener('click', ()=>{
+  openImageModal('Gambar budaya', async (val)=>{ data.budaya.image = val; await persist(); renderBudaya(); });
+});
+
+/* ---------------- aktivitas ---------------- */
+let actEditIndex = null;
+function openActModal(idx){
+  actEditIndex = idx;
+  const item = idx===null ? {name:'',desc:'',image:''} : data.aktivitas[idx];
+  document.getElementById('actModalTitle').textContent = idx===null ? 'Tambah aktivitas' : 'Edit aktivitas';
+  document.getElementById('actName').value = item.name;
+  document.getElementById('actDesc').value = item.desc;
+  document.getElementById('actFile').value = '';
+  document.getElementById('actUrl').value = '';
+  openModal('actModal');
+}
+document.getElementById('addAktivitasBtn').addEventListener('click', ()=>openActModal(null));
+document.getElementById('actModalSave').addEventListener('click', async ()=>{
+  const name = document.getElementById('actName').value.trim();
+  const desc = document.getElementById('actDesc').value.trim();
+  const file = document.getElementById('actFile').files[0];
+  const url = document.getElementById('actUrl').value.trim();
+  if(!name){ showToast('Nama aktivitas wajib diisi'); return; }
+  let image = actEditIndex===null ? '' : data.aktivitas[actEditIndex].image;
+  if(file){
+    if(file.size <= 1.6*1024*1024) image = await fileToBase64(file);
+    else { showToast('File terlalu besar, gunakan tautan URL'); return; }
+  }else if(url){ image = url; }
+  const entry = {name, desc, image: image || 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=800&auto=format&fit=crop'};
+  if(actEditIndex===null) data.aktivitas.push(entry);
+  else data.aktivitas[actEditIndex] = entry;
+  closeModal('actModal');
+  await persist();
+  renderAktivitas();
+});
+document.getElementById('aktivitasGrid').addEventListener('click', async (e)=>{
+  const rm = e.target.closest('[data-remove-act]');
+  const ed = e.target.closest('[data-edit-act]');
+  if(rm){ data.aktivitas.splice(+rm.dataset.removeAct,1); await persist(); renderAktivitas(); }
+  if(ed){ openActModal(+ed.dataset.editAct); }
+});
+
+/* ---------------- dokumentasi tabs ---------------- */
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const t = btn.dataset.tab;
+    document.getElementById('tabFoto').style.display = t==='foto' ? 'block' : 'none';
+    document.getElementById('tabVideo').style.display = t==='video' ? 'block' : 'none';
+  });
+});
+
+document.getElementById('addPhotoBtn').addEventListener('click', ()=>{
+  document.getElementById('photoFile').value = '';
+  document.getElementById('photoUrl').value = '';
+  document.getElementById('photoCaption').value = '';
+  openModal('photoModal');
+});
+document.getElementById('photoModalSave').addEventListener('click', async ()=>{
+  const file = document.getElementById('photoFile').files[0];
+  const url = document.getElementById('photoUrl').value.trim();
+  const caption = document.getElementById('photoCaption').value.trim();
+  let finalUrl = url;
+  if(file){
+    if(file.size > 1.6*1024*1024){ showToast('File terlalu besar, gunakan tautan URL'); return; }
+    finalUrl = await fileToBase64(file);
+  }
+  if(!finalUrl){ showToast('Pilih file atau isi tautan URL'); return; }
+  data.dokumentasi.photos.push({url:finalUrl, caption});
+  closeModal('photoModal');
+  await persist();
+  renderDokumentasi();
+});
+document.getElementById('galleryGrid').addEventListener('click', async (e)=>{
+  const rm = e.target.closest('[data-remove-photo]');
+  if(rm){ data.dokumentasi.photos.splice(+rm.dataset.removePhoto,1); await persist(); renderDokumentasi(); }
+});
+
+document.getElementById('addVideoBtn').addEventListener('click', ()=>{
+  document.getElementById('videoTitle').value = '';
+  document.getElementById('videoUrl').value = '';
+  openModal('videoModal');
+});
+document.getElementById('videoModalSave').addEventListener('click', async ()=>{
+  const title = document.getElementById('videoTitle').value.trim() || 'Video Bukit Layang';
+  const url = document.getElementById('videoUrl').value.trim();
+  if(!url){ showToast('Isi tautan video'); return; }
+  data.dokumentasi.videos.push({title, url});
+  closeModal('videoModal');
+  await persist();
+  renderDokumentasi();
+});
+document.getElementById('videoGrid').addEventListener('click', async (e)=>{
+  const rm = e.target.closest('[data-remove-video]');
+  if(rm){ data.dokumentasi.videos.splice(+rm.dataset.removeVideo,1); await persist(); renderDokumentasi(); }
+});
+
+/* ---------------- maps ---------------- */
+document.getElementById('editMapsBtn').addEventListener('click', ()=>{
+  document.getElementById('mapsAddressInput').value = data.maps.address;
+  document.getElementById('mapsLat').value = data.maps.lat;
+  document.getElementById('mapsLng').value = data.maps.lng;
+  openModal('mapsModal');
+});
+document.getElementById('mapsModalSave').addEventListener('click', async ()=>{
+  const addr = document.getElementById('mapsAddressInput').value.trim();
+  const lat = parseFloat(document.getElementById('mapsLat').value);
+  const lng = parseFloat(document.getElementById('mapsLng').value);
+  if(isNaN(lat) || isNaN(lng)){ showToast('Latitude/longitude tidak valid'); return; }
+  data.maps = {address: addr || data.maps.address, lat, lng};
+  closeModal('mapsModal');
+  await persist();
+  renderMaps();
+});
+
+/* ---------------- menu management ---------------- */
+document.getElementById('adminToggleBtn').addEventListener('dblclick', (e)=>{ e.preventDefault(); });
+function openMenuModal(){
+  const rows = document.getElementById('menuRows');
+  rows.innerHTML = '';
+  data.menu.forEach((m, idx)=>{
+    const row = document.createElement('div');
+    row.className = 'menu-row';
+    row.innerHTML = `
+      <input type="text" value="${escapeHtml(m.label)}" data-menu-label="${idx}">
+      <label style="display:flex;align-items:center;gap:4px;font-size:12px;color:var(--ink-soft);">
+        <input type="checkbox" ${m.visible!==false?'checked':''} data-menu-visible="${idx}"> tampil
+      </label>
+      <button class="icon-sm-btn" data-menu-up="${idx}" ${idx===0?'disabled':''} type="button">&uarr;</button>
+      <button class="icon-sm-btn" data-menu-down="${idx}" ${idx===data.menu.length-1?'disabled':''} type="button">&darr;</button>
+    `;
+    rows.appendChild(row);
+  });
+  openModal('menuModal');
+}
+document.getElementById('menuModalSave').addEventListener('click', async ()=>{
+  document.querySelectorAll('[data-menu-label]').forEach(inp=>{
+    data.menu[+inp.dataset.menuLabel].label = inp.value.trim() || data.menu[+inp.dataset.menuLabel].label;
+  });
+  document.querySelectorAll('[data-menu-visible]').forEach(inp=>{
+    data.menu[+inp.dataset.menuVisible].visible = inp.checked;
+  });
+  closeModal('menuModal');
+  await persist();
+  renderMenu();
+});
+document.getElementById('menuRows').addEventListener('click', (e)=>{
+  const up = e.target.closest('[data-menu-up]');
+  const down = e.target.closest('[data-menu-down]');
+  if(up){
+    const i = +up.dataset.menuUp;
+    if(i>0){ [data.menu[i-1],data.menu[i]] = [data.menu[i],data.menu[i-1]]; openMenuModal(); }
+  }
+  if(down){
+    const i = +down.dataset.menuDown;
+    if(i<data.menu.length-1){ [data.menu[i+1],data.menu[i]] = [data.menu[i],data.menu[i+1]]; openMenuModal(); }
+  }
+});
+
+/* a floating "kelola menu" trigger appears in the admin bar */
+const menuMgrBtn = document.createElement('button');
+menuMgrBtn.className = 'btn btn-ghost';
+menuMgrBtn.type = 'button';
+menuMgrBtn.textContent = 'kelola menu';
+menuMgrBtn.addEventListener('click', openMenuModal);
+document.querySelector('.admin-bar .actions').prepend(menuMgrBtn);
+
+/* ---------------- init ---------------- */
+document.getElementById('year').textContent = new Date().getFullYear();
+loadData().then(renderAll);
+</script>
+</body>
+</html>
