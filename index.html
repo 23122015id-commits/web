@@ -174,7 +174,7 @@
                     </div>
                 </div>
 
-                <!-- FORM SUB-KONTEN (PERBAIKAN GAMBAR UPLOAD) -->
+                <!-- FORM SUB-KONTEN -->
                 <div id="section-subcontent-fields" class="space-y-4 hidden">
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Pilih Destinasi Wisata Induk</label>
@@ -338,7 +338,7 @@
             document.getElementById('mobile-nav').classList.toggle('hidden');
         }
 
-        /* PERBAIKAN 2: NAVBAR & MODAL DASHBOARD ADMIN SESUDAH LOGIN */
+        /* NAVBAR & MODAL DASHBOARD ADMIN SESUDAH LOGIN */
         function updateNavbar() {
             document.getElementById('nav-brand-name').innerText = landingSettings.brandName;
             document.getElementById('footer-text').innerHTML = `&copy; 2026 ${landingSettings.brandName}. All rights reserved.`;
@@ -360,7 +360,7 @@
             lucide.createIcons();
         }
 
-        /* PERBAIKAN 3: OPEN GITHUB IMAGE PICKER UNTUK KONTEN UTAMA MAUPUN SUB KONTEN */
+        /* OPEN GITHUB IMAGE PICKER UNTUK KONTEN UTAMA MAUPUN SUB KONTEN */
         async function openGithubImagePicker(folder, targetId) {
             pickerTargetInputId = targetId;
             const folderPath = folder;
@@ -446,7 +446,7 @@
             }
         }
 
-        /* PERBAIKAN 4: BISA KLIK KOLOM DESTINASI WISATA SECARA UTUH */
+        /* KLIK KOLOM DESTINASI WISATA SECARA UTUH */
         function renderHome() {
             const slides = landingSettings.slideImages || [];
             const app = document.getElementById('app-content');
@@ -612,7 +612,7 @@
             }, 200);
         }
 
-        /* PERBAIKAN 1: DASHBOARD KONTROL MENAMBAH GAMBAR BANNER LANDING PAGE */
+        /* DASHBOARD KONTROL MENAMBAH GAMBAR BANNER LANDING PAGE */
         function renderAdmin() {
             if (!activeUser) return openLoginModal();
 
@@ -929,6 +929,10 @@
             saveDataToStorage();
             closePostModal();
             renderAdmin();
+        }
+
+        function editDestination(id) {
+            openPostModal(id);
         }
 
         function deleteDestination(id) {
