@@ -184,8 +184,18 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Judul Sub-Konten</label>
-                        <input type="text" id="subpost-title" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Judul Sub-Konten / Jenis Wisata</label>
+                        <input type="text" id="subpost-title" placeholder="misal: Wisata Air & Perahu" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Gambar Sub-Konten</label>
+                        <div class="flex flex-wrap sm:flex-nowrap gap-2 items-center">
+                            <input type="text" id="subpost-image" placeholder="URL / Path Gambar Sub-Konten" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm">
+                            <button type="button" onclick="openGithubImagePicker('src/img', 'subpost-image')" class="w-full sm:w-auto bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-700 px-3 py-2 rounded-lg text-xs font-semibold whitespace-nowrap flex items-center justify-center gap-1">
+                                <i data-lucide="folder" class="w-4 h-4"></i> Pilih Gambar
+                            </button>
+                        </div>
                     </div>
 
                     <div>
@@ -193,7 +203,7 @@
                         <textarea id="subpost-desc" rows="3" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm"></textarea>
                     </div>
 
-                    <!-- ATRIBUT/KOLOM BEAS UNTUK SUB-KONTEN -->
+                    <!-- ATRIBUT/KOLOM BEBAS UNTUK SUB-KONTEN -->
                     <div class="border-t border-slate-200 pt-4">
                         <div class="flex items-center justify-between mb-2">
                             <label class="block text-sm font-bold text-slate-800">Tambahkan Kolom Bebas / Custom Field</label>
@@ -239,39 +249,179 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // CONFIG GITHUB REPO ID & BRANCH DEFAULT (BISA DIKOSTUMISASI DARI DASHBOARD)
+        // CONFIG GITHUB REPO ID & BRANCH DEFAULT
         const defaultGithubSettings = {
             user: "23122015id-commits",
             repo: "web",
             branch: "main"
         };
 
-        // DEFAULT SLIDER & DESTINASI DATA
+        // DEFAULT SLIDER & LANDING SETTINGS
         const defaultLandingSettings = {
-            title: 'Jelajahi Keindahan Alam Nusantara',
-            subtitle: 'Temukan pesona destinasi kebanggaan Bukit Layang, Danau Raya, Dam Merung, dan Goa Napalicin.',
+            title: 'Jelajahi Keindahan Alam Musi Rawas Utara',
+            subtitle: 'Temukan pesona keindahan alam dan warisan budaya Bukit Layang, Danau Raya, Dam Merung, dan Goa Napalicin.',
             slideImages: [],
             brandName: 'WisataNusantara'
         };
 
+        // INTEGRASI 4 DESTINASI DENGAN SUB-KONTEN BERGAMBAR LENGKAP
         const defaultDestinations = [
             {
                 id: 'bukit-layang',
-                title: 'Bukit Layang',
-                category: 'Wisata Alam & Ketinggian',
+                title: 'Destinasi Wisata Bukit Layang (Danau Bukit Layang)',
+                category: 'Wisata Alam & Danau Buatan',
                 image: 'https://raw.githubusercontent.com/23122015id-commits/web/main/src/img/bukit-layang.jpg',
-                sejarah: 'Bukit Layang merupakan kawasan perbukitan alami yang dikembangkan menjadi destinasi wisata panorama indah.',
-                budaya: 'Masyarakat sekitar memegang teguh tradisi gotong royong dan kearifan lokal.',
-                lat: -1.8667,
-                lng: 105.8167,
-                maps: 'Desa Bukit Layang, Kecamatan Bakam, Kabupaten Bangka',
+                sejarah: 'Danau Bukit Layang dibangun sekitar tahun 1980-an (kurang lebih 40 tahun lalu) yang pada awalnya difungsikan sebagai bendungan irigasi untuk mengairi lahan pertanian masyarakat. Melihat potensi lanskap alamnya yang asri, lokasi ini mulai dikembangkan serta secara resmi diresmikan oleh pemerintah daerah setempat sebagai objek wisata pada tahun 2017.',
+                budaya: 'Masyarakat di sekitar Desa Bukit Ulu masih menjaga kearifan lokal dalam melestarikan lingkungan perairan dan perbukitan. Kehidupan sosial-budaya masyarakatnya sarat dengan tradisi melayu pesisir sungai/danau, seperti tradisi menangkap ikan tradisional dan gotong royong warga dalam menjaga kebersihan kawasan danau.',
+                lat: -2.7163,
+                lng: 102.8335,
+                maps: 'Desa Bukit Ulu, Kecamatan Karang Jaya, Kabupaten Musi Rawas Utara, Sumatera Selatan. (Kata Kunci: Danau Bukit Layang Muratara)',
                 subContent: [
                     {
-                        title: 'Spot Foto Puncak Bukit',
-                        desc: 'Area foto selfie dengan latar belakang pemandangan perbukitan.',
+                        title: 'Wisata Alam & Pemandangan',
+                        image: 'https://raw.githubusercontent.com/23122015id-commits/web/main/src/img/bukit-layang-pemandangan.jpg',
+                        desc: 'Menikmati panorama perpaduan perbukitan hijau yang asri, perairan danau jernih, dan pemandangan kawasan sungai di sekitarnya.',
                         customAttrs: [
-                            { key: 'Harga Tiket', value: 'Rp 10.000 / orang' },
-                            { key: 'Jam Buka', value: '06.00 - 18.00 WIB' }
+                            { key: 'Daya Tarik', value: 'Latar perbukitan hijau & perairan tenang' },
+                            { key: 'Waktu Terbaik', value: 'Pagi & Sore Hari' }
+                        ]
+                    },
+                    {
+                        title: 'Wisata Air & Jelajah Perahu',
+                        image: 'https://raw.githubusercontent.com/23122015id-commits/web/main/src/img/bukit-layang-perahu.jpg',
+                        desc: 'Berenang di air danau yang dingin dan jernih serta menyewa perahu motor untuk berkeliling danau seluas ±25 hektar.',
+                        customAttrs: [
+                            { key: 'Luas Area Wisata Air', value: '±25 Hektar' },
+                            { key: 'Fasilitas Air', value: 'Perahu Motor Sewaan & Area Berenang' }
+                        ]
+                    },
+                    {
+                        title: 'Wisata Rekreasi & Memancing',
+                        image: 'https://raw.githubusercontent.com/23122015id-commits/web/main/src/img/bukit-layang-piknik.jpg',
+                        desc: 'Memancing ikan air tawar di area khusus danau dan bersantai/piknik di area tepi danau bersama keluarga.',
+                        customAttrs: [
+                            { key: 'Aktivitas Utama', value: 'Memancing & Piknik Keluarga' },
+                            { key: 'Fasilitas', value: 'Tepi danau rindang & spot mancing' }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'danau-raya',
+                title: 'Destinasi Wisata Danau Raya (Danau Rayo)',
+                category: 'Wisata Edukasi, Budaya & Hutan Lindung',
+                image: 'https://raw.githubusercontent.com/23122015id-commits/web/main/src/img/danau-raya.jpg',
+                sejarah: 'Kawasan hutan lindung Danau Rayo memendam cerita rakyat legendaris yang amat terkenal di Sumatera Selatan, yaitu cerita Bujang Kurap. Menurut legenda setempat, danau ini tercipta akibat tancapan lidi oleh tokoh kesaktian Bujang Kurap yang dicabut sehingga memancarkan air deras yang menenggelamkan permukiman warga yang sombong.',
+                budaya: 'Selain kaya akan tradisi lisan (cerita rakyat), Danau Rayo berdekatan dengan permukiman Suku Anak Dalam (SAD) atau Orang Rimba. Sebagian kelompok SAD telah menetap secara harmonis di sekitar Desa Sungai Jernih, memberikan nilai edukasi kebudayaan adat yang khas bagi pengunjung. Secara rutin juga diadakan Festival Danau Raya oleh pemerintah provinsi dan daerah.',
+                lat: -2.8051,
+                lng: 102.8123,
+                maps: 'Desa Sungai Jernih, Kecamatan Rupit, Kabupaten Musi Rawas Utara, Sumatera Selatan. (Kata Kunci: Danau Rayo Muratara)',
+                subContent: [
+                    {
+                        title: 'Wisata Edukasi & Budaya SAD',
+                        image: 'https://raw.githubusercontent.com/23122015id-commits/web/main/src/img/danau-raya-budaya.jpg',
+                        desc: 'Mempelajari legenda Bujang Kurap serta melihat dari dekat ragam kehidupan adat Suku Anak Dalam (SAD) yang hidup harmonis.',
+                        customAttrs: [
+                            { key: 'Nilai Edukasi', value: 'Legenda Bujang Kurap & Adat Suku Anak Dalam' },
+                            { key: 'Event Tahunan', value: 'Festival Danau Raya' }
+                        ]
+                    },
+                    {
+                        title: 'Wisata Alam & Hutan Lindung',
+                        image: 'https://raw.githubusercontent.com/23122015id-commits/web/main/src/img/danau-raya-hutan.jpg',
+                        desc: 'Mengelilingi kawasan danau seluas ±100 hektar dengan kedalaman 15 meter yang dikelilingi pepohonan rindang nan asri.',
+                        customAttrs: [
+                            { key: 'Luas Danau', value: '±100 Hektar' },
+                            { key: 'Kedalaman Danau', value: '15 Meter' }
+                        ]
+                    },
+                    {
+                        title: 'Wisata Fotografi & Perahu Ketinting',
+                        image: 'https://raw.githubusercontent.com/23122015id-commits/web/main/src/img/danau-raya-perahu.jpg',
+                        desc: 'Menyusuri danau yang jernih menggunakan perahu kayu/ketinting sambil mengambil foto lanskap alami dan dermaga tradisional.',
+                        customAttrs: [
+                            { key: 'Transportasi Air', value: 'Perahu Kayu / Ketinting Tradisional' },
+                            { key: 'Spot Utama', value: 'Dermaga Kayu & Lanskap Danau' }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'dam-merung',
+                title: 'Destinasi Wisata Dam Merung (Danau Merung)',
+                category: 'Wisata Agrowisata & Jelajah Alam',
+                image: 'https://raw.githubusercontent.com/23122015id-commits/web/main/src/img/dam-merung.jpg',
+                sejarah: 'Dam Merung (sering juga dipopulerkan sebagai Danau Merung) awalnya merupakan struktur bendungan/danau irigasi buatan yang difungsikan untuk pengairan pertanian warga. Lokasi ini tergolong destinasi baru di Muratara yang mulai populer secara luas sejak tahun 2023 setelah adanya pembukaan lahan produksi pertanian oleh pemerintah dan kunjungan wisatawan/rider lintas daerah.',
+                budaya: 'Kawasan Desa Lesung Batu Muda merupakan permukiman bersejarah lama di Rawas Ulu yang menyimpan jejak kebudayaan masa lalu (dekat dengan situs peradaban seperti Candi Lesung Batu). Masyarakat lokal menerapkan kebudayaan agraris dan semangat swadaya dalam menata serta mengelola lingkungan bendungan menjadi kawasan wisata ramah pengunjung.',
+                lat: -2.6234,
+                lng: 102.7345,
+                maps: 'Desa Lesung Batu Muda, Kecamatan Rawas Ulu, Kabupaten Musi Rawas Utara, Sumatera Selatan. (Kata Kunci: Danau Merung Lesung Batu Muda)',
+                subContent: [
+                    {
+                        title: 'Wisata Agrowisata & Agro-Edukasi',
+                        image: 'https://raw.githubusercontent.com/23122015id-commits/web/main/src/img/dam-merung-agro.jpg',
+                        desc: 'Melihat bentang alam pertanian produktif (seperti kawasan perkebunan bawang merah dan palawija milik warga sekitar).',
+                        customAttrs: [
+                            { key: 'Komoditas Lokal', value: 'Bawang Merah & Palawija' },
+                            { key: 'Aktivitas', value: 'Tour Agro-edukasi Pertanian' }
+                        ]
+                    },
+                    {
+                        title: 'Wisata Senja & Relaksasi Gazebo',
+                        image: 'https://raw.githubusercontent.com/23122015id-commits/web/main/src/img/dam-merung-sunset.jpg',
+                        desc: 'Menikmati pemandangan matahari terbenam (sunset) yang eksotis di tepi danau bendungan dari gazebo-gazebo kayu.',
+                        customAttrs: [
+                            { key: 'Fasilitas', value: 'Gazebo Kayu Pinggir Air' },
+                            { key: 'Momen Favorit', value: 'Sunset / Matahari Terbenam' }
+                        ]
+                    },
+                    {
+                        title: 'Wisata Otomotif & Offroad',
+                        image: 'https://raw.githubusercontent.com/23122015id-commits/web/main/src/img/dam-merung-offroad.jpg',
+                        desc: 'Jalur menantang di sekitar kawasan bendungan yang kerap dimanfaatkan oleh komunitas rider dan pecinta jelajah alam.',
+                        customAttrs: [
+                            { key: 'Sasaran Pengunjung', value: 'Komunitas Rider & Offroad' },
+                            { key: 'Tipe Jalur', value: 'Tanah & Perkembangan Agrowisata' }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'goa-napalicin',
+                title: 'Destinasi Wisata Goa Napalicin (Goa Batu Napalicin)',
+                category: 'Wisata Arkeologi, Speleologi & Sejarah',
+                image: 'https://raw.githubusercontent.com/23122015id-commits/web/main/src/img/goa-napalicin.jpg',
+                sejarah: 'Goa Napalicin merupakan situs arkeologi tua di Sumatera Selatan yang menjadi rujukan penelitian ilmuwan dalam dan luar negeri. Berdasarkan riset arkeologi, kawasan goa ini menjadi saksi peradaban lintas zaman—mulai dari era manusia purba, masa megalitikum, era kerajaan, hingga penjajahan. Menurut legenda rakyat setempat, bukit batu goa ini dipercaya berasal dari kapal yang dikutuk menjadi batu oleh tokoh sakti Si Pahit Lidah (Serunting Sakti).',
+                budaya: 'Tradisi tutur serta mitologi Si Pahit Lidah melekat kuat di kawasan Ulu Rawas. Goa ini juga memuat nilai historis tinggi karena pada dekade 1990-an pernah menjadi kawasan peristirahatan turis mancanegara ternama (Rawas River Lodge).',
+                lat: -2.5321,
+                lng: 102.5112,
+                maps: 'Desa Napalicin, Kecamatan Ulu Rawas, Kabupaten Musi Rawas Utara, Sumatera Selatan. (Kata Kunci: Goa Napalicin Muratara)',
+                subContent: [
+                    {
+                        title: 'Wisata Arkeologi & Sejarah Purbakala',
+                        image: 'https://raw.githubusercontent.com/23122015id-commits/web/main/src/img/goa-napalicin-sejarah.jpg',
+                        desc: 'Menelusuri lorong-lorong goa batu kapur untuk mempelajari jejak purbakala dari era prasejarah hingga zaman kerajaan.',
+                        customAttrs: [
+                            { key: 'Situs Arkeologi', value: 'Lintas era purba hingga penjajahan' },
+                            { key: 'Jejak Historis', value: 'Eks Rawas River Lodge (1990-an)' }
+                        ]
+                    },
+                    {
+                        title: 'Wisata Speleologi & Caving Petualangan',
+                        image: 'https://raw.githubusercontent.com/23122015id-commits/web/main/src/img/goa-napalicin-caving.jpg',
+                        desc: 'Menjelajahi keindahan ornamen stalaktit dan stalagmit alami di dalam lorong goa yang menantang adrenalin.',
+                        customAttrs: [
+                            { key: 'Formasi Batuan', value: 'Stalaktit & Stalagmit Eksotis' },
+                            { key: 'Kategori', value: 'Caving & Petualangan Alam' }
+                        ]
+                    },
+                    {
+                        title: 'Wisata Fotografi Geologi & Light Ray',
+                        image: 'https://raw.githubusercontent.com/23122015id-commits/web/main/src/img/goa-napalicin-fotografi.jpg',
+                        desc: 'Mengabadikan fenomena terobosan cahaya matahari alami melalui celah atap goa batu kapur yang menjulang tinggi.',
+                        customAttrs: [
+                            { key: 'Highlight Visual', value: 'Cahaya Alami Penerobos Celah Goa' },
+                            { key: 'Legenda Mitos', value: 'Kapal Terkutuk Si Pahit Lidah' }
                         ]
                     }
                 ]
@@ -339,7 +489,7 @@
             lucide.createIcons();
         }
 
-        // FETCH GAMBAR DARI GITHUB API REALTIME (MENGGUNAKAN KOSTUMISASI URL REPO)
+        // FETCH GAMBAR DARI GITHUB API REALTIME
         async function openGithubImagePicker(folder, targetId) {
             pickerTargetInputId = targetId;
             const folderPath = folder === 'src/img' ? 'src/img' : 'src/slideimg';
@@ -442,306 +592,410 @@
                         </a>
                     </div>
 
-                    <button onclick="changeSlide(-1)" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 bg-slate-900/60 hover:bg-emerald-600 text-white p-2.5 sm:p-3 rounded-full backdrop-blur-md border border-white/20 transition shadow-lg">
+                    <!-- SLIDER NAV CONTROLS -->
+                    <button onclick="changeSlide(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-black/60 text-white p-2 md:p-3 rounded-full backdrop-blur-sm transition">
                         <i data-lucide="chevron-left" class="w-6 h-6"></i>
                     </button>
-                    <button onclick="changeSlide(1)" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 bg-slate-900/60 hover:bg-emerald-600 text-white p-2.5 sm:p-3 rounded-full backdrop-blur-md border border-white/20 transition shadow-lg">
+                    <button onclick="changeSlide(1)" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-black/60 text-white p-2 md:p-3 rounded-full backdrop-blur-sm transition">
                         <i data-lucide="chevron-right" class="w-6 h-6"></i>
                     </button>
 
-                    <div id="slide-indicators" class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2"></div>
+                    <!-- INDICATORS -->
+                    <div id="slide-indicators" class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2"></div>
                 </section>
 
-                <section id="destinasi" class="max-w-7xl mx-auto px-4 py-16">
+                <section id="destinasi" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                     <div class="text-center mb-12">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Destinasi Wisata Unggulan</h2>
-                        <p class="text-slate-600 text-sm sm:text-base mt-2">Jelajahi keindahan alam dan keunikan budaya lokal.</p>
+                        <h2 class="text-3xl font-bold text-slate-900">Destinasi Wisata Unggulan</h2>
+                        <p class="text-slate-500 mt-2">Jelajahi keindahan alam, budaya, dan objek rekreasi terbaik di Musi Rawas Utara</p>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
                         ${destinationsData.map(item => `
-                            <div onclick="navigateToDetail('${item.id}')" class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border border-slate-100 flex flex-col">
-                                <div class="relative h-48 overflow-hidden">
-                                    <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://via.placeholder.com/300?text=Gambar+Tidak+Ada'">
-                                    <span class="absolute top-3 right-3 bg-slate-900/70 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full font-medium">${item.category}</span>
+                            <div class="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-md hover:shadow-xl transition duration-300 flex flex-col justify-between group">
+                                <div>
+                                    <div class="relative h-64 overflow-hidden bg-slate-100">
+                                        <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://via.placeholder.com/600x400?text=Gambar+Wisata'">
+                                        <span class="absolute top-4 left-4 bg-emerald-600/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+                                            ${item.category}
+                                        </span>
+                                    </div>
+                                    <div class="p-6 space-y-3">
+                                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-600 transition">${item.title}</h3>
+                                        <p class="text-slate-600 text-sm line-clamp-3">${item.sejarah}</p>
+                                    </div>
                                 </div>
-                                <div class="p-5 flex-grow flex flex-col justify-between">
-                                    <div>
-                                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition mb-2">${item.title}</h3>
-                                        <p class="text-slate-600 text-sm line-clamp-2">${item.sejarah}</p>
-                                    </div>
-                                    <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-emerald-600 font-semibold text-sm">
-                                        <span>Lihat Detail (${item.subContent ? item.subContent.length : 0} Sub)</span>
-                                        <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition"></i>
-                                    </div>
+                                <div class="p-6 pt-0">
+                                    <button onclick="renderDetail('${item.id}')" class="w-full bg-slate-100 hover:bg-emerald-600 hover:text-white text-slate-700 font-medium py-2.5 rounded-xl transition flex items-center justify-center gap-2 text-sm">
+                                        Lihat Detail Destinasi <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                    </button>
                                 </div>
                             </div>
                         `).join('')}
                     </div>
                 </section>
             `;
-            updateNavbar();
-            updateSlideDisplay();
+
             lucide.createIcons();
+            updateSlideDisplay();
         }
 
-        // RENDER DETAIL PAGE DENGAN PAGINASI & KOLOM BEAS SUB-KONTEN
-        function navigateToDetail(id, page = 1) {
+        // RENDER DETAIL DESTINASI DENGAN GAMBAR SUB-KONTEN & PETA LEAFLET
+        function renderDetail(id) {
             const item = destinationsData.find(d => d.id === id);
-            if (!item) return;
-
-            currentSubContentPage = page;
-            const subContentList = item.subContent || [];
-            const totalPages = Math.ceil(subContentList.length / SUB_ITEMS_PER_PAGE);
-            
-            const startIndex = (currentSubContentPage - 1) * SUB_ITEMS_PER_PAGE;
-            const paginatedSubItems = subContentList.slice(startIndex, startIndex + SUB_ITEMS_PER_PAGE);
+            if (!item) return navigateTo('home');
 
             const app = document.getElementById('app-content');
             app.innerHTML = `
-                <div class="max-w-5xl mx-auto px-4 py-8 space-y-8">
-                    <button onclick="navigateTo('home')" class="inline-flex items-center gap-2 text-slate-600 hover:text-emerald-600 font-medium transition text-sm">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+                    <!-- BREADCRUMB & BACK -->
+                    <button onclick="navigateTo('home')" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 hover:text-emerald-700">
                         <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Beranda
                     </button>
 
-                    <div class="relative h-64 sm:h-80 md:h-[400px] rounded-3xl overflow-hidden shadow-lg">
-                        <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-6 md:p-8">
-                            <div>
-                                <span class="bg-emerald-500 text-white text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wider">${item.category}</span>
-                                <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white mt-2">${item.title}</h1>
+                    <!-- HEADER DESTINASI -->
+                    <div class="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-lg">
+                        <div class="relative h-80 sm:h-96 w-full bg-slate-900">
+                            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover opacity-85" onerror="this.src='https://via.placeholder.com/1200x600?text=Gambar+Destinasi'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent flex flex-col justify-end p-6 sm:p-8 text-white">
+                                <span class="bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full w-max mb-2">${item.category}</span>
+                                <h1 class="text-2xl sm:text-4xl font-extrabold">${item.title}</h1>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="md:col-span-2 space-y-6">
-                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                                <h3 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-                                    <i data-lucide="book-open" class="text-emerald-600"></i> Sejarah
-                                </h3>
-                                <p class="text-slate-600 leading-relaxed text-sm sm:text-base">${item.sejarah}</p>
-                            </div>
-
-                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                                <h3 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-                                    <i data-lucide="landmark" class="text-emerald-600"></i> Budaya & Tradisi
-                                </h3>
-                                <p class="text-slate-600 leading-relaxed text-sm sm:text-base">${item.budaya}</p>
-                            </div>
-
-                            <!-- SUB-KONTEN DENGAN PAGINASI DAN ATRIBUT BEBAS -->
-                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                                <div class="flex items-center justify-between mb-4">
-                                    <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                                        <i data-lucide="layers" class="text-emerald-600"></i> Sub-Konten & Informasi Tambahan
-                                    </h3>
-                                    <span class="text-xs bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full font-semibold">
-                                        Total: ${subContentList.length} Item
-                                    </span>
+                        <div class="p-6 sm:p-8 space-y-6">
+                            <!-- SEJARAH & BUDAYA -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 space-y-2">
+                                    <div class="flex items-center gap-2 text-emerald-600 font-bold text-lg">
+                                        <i data-lucide="history" class="w-5 h-5"></i> Sejarah
+                                    </div>
+                                    <p class="text-slate-600 text-sm leading-relaxed">${item.sejarah}</p>
                                 </div>
+                                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 space-y-2">
+                                    <div class="flex items-center gap-2 text-emerald-600 font-bold text-lg">
+                                        <i data-lucide="users" class="w-5 h-5"></i> Budaya & Tradisi
+                                    </div>
+                                    <p class="text-slate-600 text-sm leading-relaxed">${item.budaya}</p>
+                                </div>
+                            </div>
 
-                                ${paginatedSubItems.length > 0 ? `
-                                    <div class="grid grid-cols-1 gap-4">
-                                        ${paginatedSubItems.map((sub, idx) => `
-                                            <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-                                                <h4 class="font-bold text-slate-800 text-sm sm:text-base">
-                                                    <span class="text-emerald-600 font-mono text-xs mr-1">#${startIndex + idx + 1}</span> ${sub.title}
-                                                </h4>
-                                                <p class="text-xs sm:text-sm text-slate-600">${sub.desc}</p>
-                                                
-                                                <!-- RENDER KOLOM BEAS / CUSTOM ATTRS -->
+                            <!-- SUB KONTEN / JENIS WISATA (BESERTA GAMBAR DARI REPO) -->
+                            <div class="space-y-4 pt-4">
+                                <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                    <i data-lucide="layers" class="w-5 h-5 text-emerald-600"></i> Jenis-Jenis Wisata & Aktivitas
+                                </h3>
+                                ${item.subContent && item.subContent.length > 0 ? `
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                        ${item.subContent.map(sub => `
+                                            <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                                                <div>
+                                                    ${sub.image ? `
+                                                        <div class="h-44 w-full overflow-hidden bg-slate-100 border-b border-slate-100">
+                                                            <img src="${sub.image}" alt="${sub.title}" class="w-full h-full object-cover hover:scale-105 transition duration-300" onerror="this.src='https://via.placeholder.com/400x250?text=Gambar+Sub+Konten'">
+                                                        </div>
+                                                    ` : ''}
+                                                    <div class="p-5 space-y-2">
+                                                        <h4 class="font-bold text-slate-900 text-base">${sub.title}</h4>
+                                                        <p class="text-slate-600 text-xs leading-relaxed">${sub.desc}</p>
+                                                    </div>
+                                                </div>
                                                 ${sub.customAttrs && sub.customAttrs.length > 0 ? `
-                                                    <div class="pt-2 mt-2 border-t border-slate-200/60 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                                        ${sub.customAttrs.map(attr => `
-                                                            <div class="bg-white p-2 rounded-lg border border-slate-200 text-xs">
-                                                                <span class="font-bold text-slate-500 block text-[10px] uppercase">${attr.key}</span>
-                                                                <span class="font-semibold text-slate-800">${attr.value}</span>
-                                                            </div>
-                                                        `).join('')}
+                                                    <div class="p-5 pt-0">
+                                                        <div class="mt-3 pt-3 border-t border-slate-100 space-y-1.5">
+                                                            ${sub.customAttrs.map(attr => `
+                                                                <div class="flex justify-between text-xs">
+                                                                    <span class="text-slate-400 font-medium">${attr.key}:</span>
+                                                                    <span class="text-slate-700 font-semibold text-right">${attr.value}</span>
+                                                                </div>
+                                                            `).join('')}
+                                                        </div>
                                                     </div>
                                                 ` : ''}
                                             </div>
                                         `).join('')}
                                     </div>
-
-                                    <!-- TOMBOL NAVIGASI HALAMAN PAGINASI -->
-                                    ${totalPages > 1 ? `
-                                        <div class="flex flex-wrap items-center justify-center gap-2 mt-6 pt-4 border-t border-slate-100">
-                                            <span class="text-xs text-slate-500 mr-2 w-full text-center sm:w-auto">Halaman ${currentSubContentPage} dari ${totalPages}</span>
-                                            ${Array.from({length: totalPages}, (_, p) => p + 1).map(p => `
-                                                <button onclick="navigateToDetail('${item.id}', ${p})" class="px-3 py-1.5 text-xs font-bold rounded-lg transition ${p === currentSubContentPage ? 'bg-emerald-600 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}">
-                                                    ${p}
-                                                </button>
-                                            `).join('')}
-                                        </div>
-                                    ` : ''}
                                 ` : `
-                                    <p class="text-sm text-slate-400 italic">Belum ada sub-konten ditambahkan.</p>
+                                    <p class="text-slate-500 text-sm italic">Belum ada sub-konten jenis wisata untuk destinasi ini.</p>
                                 `}
                             </div>
-                        </div>
 
-                        <!-- MAPS KOORDINAT -->
-                        <div class="space-y-6">
-                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
-                                <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                                    <i data-lucide="map-pin" class="text-emerald-600"></i> Alamat & Peta Lokasi
+                            <!-- PETA LOKASI LEAFLET & GOOGLE MAPS LINK -->
+                            <div class="space-y-4 pt-4 border-t border-slate-100">
+                                <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                    <i data-lucide="map-pin" class="w-5 h-5 text-emerald-600"></i> Peta & Lokasi Google Maps
                                 </h3>
-                                <p class="text-slate-600 text-sm">${item.maps}</p>
-                                <div id="map-detail" class="h-64 rounded-xl shadow-inner border border-slate-200"></div>
+                                <p class="text-sm text-slate-600"><strong>Alamat:</strong> ${item.maps}</p>
+                                <div id="map-detail" class="h-72 w-full bg-slate-100 rounded-2xl border border-slate-200"></div>
+                                <div class="pt-2">
+                                    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.title + ' ' + item.maps)}" target="_blank" class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 font-semibold px-4 py-2 rounded-xl text-xs transition">
+                                        <i data-lucide="external-link" class="w-4 h-4"></i> Buka Petunjuk Arah di Google Maps
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             `;
-            
-            updateNavbar();
+
             lucide.createIcons();
 
+            // RENDER MAP LEAFLET
             setTimeout(() => {
-                const map = L.map('map-detail').setView([item.lat, item.lng], 13);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
-                L.marker([item.lat, item.lng]).addTo(map).bindPopup(`<b>${item.title}</b>`).openPopup();
-            }, 100);
+                if (item.lat && item.lng) {
+                    const map = L.map('map-detail').setView([item.lat, item.lng], 13);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; OpenStreetMap'
+                    }).addTo(map);
+                    L.marker([item.lat, item.lng]).addTo(map)
+                        .bindPopup(`<b>${item.title}</b><br>${item.maps}`)
+                        .openPopup();
+                }
+            }, 200);
         }
 
-        // RENDER DASHBOARD ADMIN (LENGKAP DENGAN SETELAN KOSTUM GITHUB & FITUR POST)
-        function renderAdminDashboard() {
-            if (!activeUser) {
-                openLoginModal();
-                return;
-            }
+        // RENDER ADMIN DASHBOARD (CMS)
+        function renderAdmin() {
+            if (!activeUser) return openLoginModal();
 
-            const slides = landingSettings.slideImages || [];
             const app = document.getElementById('app-content');
+
+            // Gather all subcontents for admin table with pagination
+            let allSubContents = [];
+            destinationsData.forEach(dest => {
+                if (dest.subContent) {
+                    dest.subContent.forEach((sub, sIdx) => {
+                        allSubContents.push({
+                            parentTitle: dest.title,
+                            parentId: dest.id,
+                            subIdx: sIdx,
+                            ...sub
+                        });
+                    });
+                }
+            });
+
+            const totalSubPages = Math.ceil(allSubContents.length / SUB_ITEMS_PER_PAGE) || 1;
+            const paginatedSubContents = allSubContents.slice(
+                (currentSubContentPage - 1) * SUB_ITEMS_PER_PAGE,
+                currentSubContentPage * SUB_ITEMS_PER_PAGE
+            );
+
             app.innerHTML = `
-                <div class="max-w-7xl mx-auto px-4 py-8 space-y-8">
-                    <!-- HEADER DASHBOARD -->
-                    <div class="flex flex-wrap items-center justify-between gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+                    <div class="flex flex-wrap items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                         <div>
-                            <h1 class="text-xl sm:text-2xl font-bold text-slate-900">Dashboard CMS Administrator</h1>
-                            <p class="text-slate-500 text-xs sm:text-sm">Pengelola: <b>${activeUser.name}</b></p>
+                            <h1 class="text-2xl font-extrabold text-slate-900">CMS Management Dashboard</h1>
+                            <p class="text-slate-500 text-sm">Kelola konten destinasi, sub-konten jenis wisata, banner slider, dan setelan repositori</p>
                         </div>
-                        <div class="flex gap-2">
-                            <button onclick="openPostModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold flex items-center gap-1 shadow-sm">
-                                <i data-lucide="plus-circle" class="w-4 h-4"></i> Buat Post Baru
-                            </button>
-                            <button onclick="logoutAdmin()" class="bg-rose-50 text-rose-600 px-4 py-2 rounded-lg hover:bg-rose-100 transition text-xs sm:text-sm font-medium">Keluar</button>
-                        </div>
+                        <button onclick="openPostModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2.5 rounded-xl transition flex items-center gap-2 text-sm shadow-md">
+                            <i data-lucide="plus-circle" class="w-5 h-5"></i> Tambah Post / Sub-Konten
+                        </button>
                     </div>
 
-                    <!-- PENGATURAN REPOSITORY GITHUB (KOSTUMISASI URL) -->
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
-                        <h3 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
-                            <i data-lucide="github" class="w-5 h-5 text-slate-700"></i> Pengaturan Repositori GitHub (Sumber Gambar REST API)
+                    <!-- TABEL KONTEN UTAMA DESTINASI -->
+                    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-6">
+                        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                            <i data-lucide="map" class="w-5 h-5 text-emerald-600"></i> Daftar Destinasi Wisata Utama (${destinationsData.length})
                         </h3>
-                        <form onsubmit="handleSaveGithubSettings(event)" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 mb-1">GitHub Username / Org</label>
-                                <input type="text" id="gh-user" value="${githubSettings.user}" required class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs font-mono">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 mb-1">Nama Repositori</label>
-                                <input type="text" id="gh-repo" value="${githubSettings.repo}" required class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs font-mono">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 mb-1">Branch</label>
-                                <input type="text" id="gh-branch" value="${githubSettings.branch}" required class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs font-mono">
-                            </div>
-                            <div class="sm:col-span-3 flex justify-end">
-                                <button type="submit" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-lg text-xs font-semibold">Simpan Repository Target</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <!-- SLIDER MANAGEMENT TANPA BATAS -->
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
-                        <h3 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3">Pengaturan Landing Page & Slider</h3>
-                        <form onsubmit="handleSaveLandingSettings(event)" class="space-y-4">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-slate-700 mb-1">Nama Brand Website</label>
-                                    <input type="text" id="landing-brand" value="${landingSettings.brandName}" required class="w-full px-4 py-2 rounded-lg border border-slate-300 text-sm">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-slate-700 mb-1">Judul Utama Banner</label>
-                                    <input type="text" id="landing-title" value="${landingSettings.title}" required class="w-full px-4 py-2 rounded-lg border border-slate-300 text-sm">
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-slate-700 mb-1">Sub-Judul Banner</label>
-                                <input type="text" id="landing-subtitle" value="${landingSettings.subtitle}" required class="w-full px-4 py-2 rounded-lg border border-slate-300 text-sm">
-                            </div>
-
-                            <div class="border-t border-slate-100 pt-4">
-                                <div class="flex items-center justify-between mb-3">
-                                    <label class="block text-sm font-bold text-slate-800">Daftar Gambar Slider Landing Page</label>
-                                    <button type="button" onclick="openGithubImagePicker('src/slideimg', 'add-slide-image')" class="text-xs bg-emerald-100 text-emerald-700 hover:bg-emerald-200 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1">
-                                        <i data-lucide="plus" class="w-3.5 h-3.5"></i> Pilih dari /src/slideimg
-                                    </button>
-                                </div>
-                                <input type="hidden" id="add-slide-image" onchange="addNewSlideFromPicker(this.value)">
-
-                                <div id="slide-items-container" class="space-y-2 max-h-60 overflow-y-auto pr-1">
-                                    ${slides.map((img, idx) => `
-                                        <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl border border-slate-200">
-                                            <img src="${img}" class="w-12 h-12 object-cover rounded-lg border">
-                                            <input type="text" value="${img}" readonly class="w-full px-3 py-1 bg-white border border-slate-300 rounded-md text-xs font-mono">
-                                            <button type="button" onclick="removeSlideImage(${idx})" class="text-rose-500 hover:text-rose-700 p-2">
-                                                <i data-lucide="trash-2" class="w-4 h-4"></i>
-                                            </button>
-                                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm text-slate-600 border-collapse">
+                                <thead class="bg-slate-50 text-slate-700 uppercase text-xs font-semibold border-b border-slate-200">
+                                    <tr>
+                                        <th class="p-3">Gambar</th>
+                                        <th class="p-3">Nama Destinasi</th>
+                                        <th class="p-3">Kategori</th>
+                                        <th class="p-3">Sub-Konten</th>
+                                        <th class="p-3 text-right">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    ${destinationsData.map(d => `
+                                        <tr class="hover:bg-slate-50">
+                                            <td class="p-3">
+                                                <img src="${d.image}" class="w-12 h-12 object-cover rounded-lg border border-slate-200" onerror="this.src='https://via.placeholder.com/50'">
+                                            </td>
+                                            <td class="p-3 font-semibold text-slate-900">${d.title}</td>
+                                            <td class="p-3"><span class="bg-slate-100 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded-full">${d.category}</span></td>
+                                            <td class="p-3"><span class="font-bold text-emerald-600">${d.subContent ? d.subContent.length : 0}</span> Sub-item</td>
+                                            <td class="p-3 text-right space-x-2">
+                                                <button onclick="editDestination('${d.id}')" class="text-indigo-600 hover:text-indigo-800 font-semibold text-xs">Edit</button>
+                                                <button onclick="deleteDestination('${d.id}')" class="text-rose-600 hover:text-rose-800 font-semibold text-xs">Hapus</button>
+                                            </td>
+                                        </tr>
                                     `).join('')}
-                                </div>
-                            </div>
-
-                            <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-6 py-2.5 rounded-lg text-sm">Simpan Perubahan Landing Page</button>
-                        </form>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
-                    <!-- KELOLA DESTINASI WISATA -->
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
-                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                            <h3 class="text-lg font-bold text-slate-900">Konten Destinasi Wisata</h3>
+                    <!-- TABEL SUB-KONTEN KANONIKAL DENGAN GAMBAR & PAGINASI -->
+                    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-6">
+                        <div class="flex flex-wrap justify-between items-center gap-2">
+                            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                <i data-lucide="layers" class="w-5 h-5 text-emerald-600"></i> Sub-Konten / Jenis Wisata (${allSubContents.length})
+                            </h3>
+                            <span class="text-xs text-slate-400">Menampilkan 10 item per halaman</span>
                         </div>
-                        <div class="divide-y divide-slate-100">
-                            ${destinationsData.map(d => `
-                                <div class="py-4 flex flex-wrap items-center justify-between gap-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="${d.image}" class="w-12 h-12 rounded-lg object-cover">
-                                        <div>
-                                            <h4 class="font-bold text-slate-800 text-sm sm:text-base">${d.title}</h4>
-                                            <p class="text-xs text-slate-500">${d.category} • <span class="text-emerald-600 font-semibold">${d.subContent ? d.subContent.length : 0} Sub-Konten</span></p>
-                                        </div>
-                                    </div>
-                                    <div class="flex gap-2">
-                                        <button onclick="editDestinationModal('${d.id}')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded-lg">Edit</button>
-                                        <button onclick="deleteDestinasi('${d.id}')" class="px-2 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 text-xs font-medium rounded-lg">Hapus</button>
-                                    </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm text-slate-600 border-collapse">
+                                <thead class="bg-slate-50 text-slate-700 uppercase text-xs font-semibold border-b border-slate-200">
+                                    <tr>
+                                        <th class="p-3">Gambar</th>
+                                        <th class="p-3">Judul Sub-Konten</th>
+                                        <th class="p-3">Destinasi Induk</th>
+                                        <th class="p-3">Deskripsi Singkat</th>
+                                        <th class="p-3 text-right">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    ${paginatedSubContents.length > 0 ? paginatedSubContents.map(sub => `
+                                        <tr class="hover:bg-slate-50">
+                                            <td class="p-3">
+                                                <img src="${sub.image || 'https://via.placeholder.com/50'}" class="w-10 h-10 object-cover rounded-lg border border-slate-200" onerror="this.src='https://via.placeholder.com/50'">
+                                            </td>
+                                            <td class="p-3 font-semibold text-slate-900">${sub.title}</td>
+                                            <td class="p-3"><span class="bg-emerald-50 text-emerald-700 text-xs font-semibold px-2.5 py-1 rounded-full">${sub.parentTitle}</span></td>
+                                            <td class="p-3 text-xs text-slate-500 max-w-xs truncate">${sub.desc}</td>
+                                            <td class="p-3 text-right space-x-2">
+                                                <button onclick="deleteSubContent('${sub.parentId}', ${sub.subIdx})" class="text-rose-600 hover:text-rose-800 font-semibold text-xs">Hapus</button>
+                                            </td>
+                                        </tr>
+                                    `).join('') : `
+                                        <tr><td colspan="5" class="text-center py-6 text-slate-400 text-sm">Belum ada sub-konten tersedia</td></tr>
+                                    `}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- PAGINASI SUB-KONTEN -->
+                        ${totalSubPages > 1 ? `
+                            <div class="flex items-center justify-between pt-4 border-t border-slate-100 text-xs">
+                                <span class="text-slate-500">Halaman ${currentSubContentPage} dari ${totalSubPages}</span>
+                                <div class="flex gap-1">
+                                    <button onclick="changeSubPage(-1)" ${currentSubContentPage === 1 ? 'disabled' : ''} class="px-3 py-1.5 rounded border border-slate-300 disabled:opacity-40 hover:bg-slate-100">Sebaiknya</button>
+                                    <button onclick="changeSubPage(1)" ${currentSubContentPage === totalSubPages ? 'disabled' : ''} class="px-3 py-1.5 rounded border border-slate-300 disabled:opacity-40 hover:bg-slate-100">Berikutnya</button>
                                 </div>
-                            `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+
+                    <!-- SETELAN REPOSITORI GITHUB & LANDING -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                <i data-lucide="github" class="w-5 h-5 text-emerald-600"></i> Pengaturan Repositori GitHub
+                            </h3>
+                            <form onsubmit="handleSaveGithubSettings(event)" class="space-y-3">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">GitHub Username / Owner</label>
+                                    <input type="text" id="gh-user" value="${githubSettings.user}" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Repository Name</label>
+                                    <input type="text" id="gh-repo" value="${githubSettings.repo}" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Branch Name</label>
+                                    <input type="text" id="gh-branch" value="${githubSettings.branch}" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm">
+                                </div>
+                                <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-lg text-xs">Simpan Konfigurasi</button>
+                            </form>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                <i data-lucide="sliders" class="w-5 h-5 text-emerald-600"></i> Teks Beranda & Banner Slider
+                            </h3>
+                            <form onsubmit="handleSaveLandingSettings(event)" class="space-y-3">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Nama Brand Website</label>
+                                    <input type="text" id="set-brand" value="${landingSettings.brandName}" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Judul Utama Hero Banner</label>
+                                    <input type="text" id="set-title" value="${landingSettings.title}" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Sub-judul Hero Banner</label>
+                                    <textarea id="set-subtitle" rows="2" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm">${landingSettings.subtitle}</textarea>
+                                </div>
+                                <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-lg text-xs">Update Teks Landing</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             `;
-            updateNavbar();
+
             lucide.createIcons();
         }
 
-        // FITUR POST CONTROLLER (TAMBAH DESTINASI ATAU SUB-KONTEN)
-        function openPostModal() {
-            document.getElementById('post-modal-title').innerText = 'Buat Post Baru';
-            document.getElementById('post-edit-id').value = '';
+        // HANDLERS & MODAL CONTROL
+        function changeSubPage(dir) {
+            currentSubContentPage += dir;
+            renderAdmin();
+        }
+
+        function openLoginModal() {
+            document.getElementById('login-modal').classList.remove('hidden');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('login-modal').classList.add('hidden');
+            document.getElementById('login-error').classList.add('hidden');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+
+            const user = usersData.find(usr => usr.username === u && usr.password === p);
+            if (user) {
+                activeUser = user;
+                saveDataToStorage();
+                closeLoginModal();
+                updateNavbar();
+                navigateTo('admin');
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        }
+
+        function logoutAdmin() {
+            activeUser = null;
+            saveDataToStorage();
+            updateNavbar();
+            navigateTo('home');
+        }
+
+        function openPostModal(editId = null) {
             document.getElementById('post-form').reset();
+            document.getElementById('post-edit-id').value = editId || '';
             document.getElementById('custom-attrs-container').innerHTML = '';
-            
-            // Populate parent destinations dropdown
+
+            // Populate parent select for sub-content
             const parentSelect = document.getElementById('post-parent-id');
             parentSelect.innerHTML = destinationsData.map(d => `<option value="${d.id}">${d.title}</option>`).join('');
 
+            if (editId) {
+                const dest = destinationsData.find(d => d.id === editId);
+                if (dest) {
+                    document.getElementById('post-type').value = 'destination';
+                    document.getElementById('post-title').value = dest.title;
+                    document.getElementById('post-category').value = dest.category;
+                    document.getElementById('post-image').value = dest.image;
+                    document.getElementById('post-sejarah').value = dest.sejarah;
+                    document.getElementById('post-budaya').value = dest.budaya;
+                    document.getElementById('post-lat').value = dest.lat || '';
+                    document.getElementById('post-lng').value = dest.lng || '';
+                    document.getElementById('post-maps').value = dest.maps || '';
+                }
+            }
+
             togglePostTypeFields();
             document.getElementById('post-modal').classList.remove('hidden');
+            lucide.createIcons();
         }
 
         function closePostModal() {
@@ -762,14 +1016,14 @@
             }
         }
 
-        function addCustomAttrField(key = '', value = '') {
+        function addCustomAttrField(key = '', val = '') {
             const container = document.getElementById('custom-attrs-container');
             const div = document.createElement('div');
-            div.className = 'custom-attr-row flex gap-2 items-center bg-slate-50 p-2 rounded-lg border border-slate-200';
+            div.className = "flex gap-2 items-center";
             div.innerHTML = `
-                <input type="text" placeholder="Nama Kolom (mis: Harga Tiket)" value="${key}" class="attr-key w-1/2 px-3 py-1 rounded-md border border-slate-300 text-xs focus:outline-none">
-                <input type="text" placeholder="Isi Kolom (mis: Rp 10.000)" value="${value}" class="attr-val w-1/2 px-3 py-1 rounded-md border border-slate-300 text-xs focus:outline-none">
-                <button type="button" onclick="this.parentElement.remove()" class="text-rose-500 hover:text-rose-700 p-1">
+                <input type="text" placeholder="Nama Kolom (ex: Jam Buka)" value="${key}" class="custom-key w-1/2 px-3 py-1.5 rounded-lg border border-slate-300 text-xs">
+                <input type="text" placeholder="Nilai (ex: 08.00 - 17.00)" value="${val}" class="custom-val w-1/2 px-3 py-1.5 rounded-lg border border-slate-300 text-xs">
+                <button type="button" onclick="this.parentElement.remove()" class="text-rose-500 p-1 hover:bg-rose-50 rounded">
                     <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
             `;
@@ -779,154 +1033,124 @@
 
         function handleSavePost(e) {
             e.preventDefault();
-            const postType = document.getElementById('post-type').value;
+            const type = document.getElementById('post-type').value;
+            const editId = document.getElementById('post-edit-id').value;
 
-            if (postType === 'destination') {
-                const editId = document.getElementById('post-edit-id').value;
-                const id = editId || 'dest-' + Date.now();
-                const title = document.getElementById('post-title').value.trim();
-                const category = document.getElementById('post-category').value.trim();
-                const image = document.getElementById('post-image').value.trim();
-                const sejarah = document.getElementById('post-sejarah').value.trim();
-                const budaya = document.getElementById('post-budaya').value.trim();
+            if (type === 'destination') {
+                const title = document.getElementById('post-title').value;
+                const category = document.getElementById('post-category').value;
+                const image = document.getElementById('post-image').value;
+                const sejarah = document.getElementById('post-sejarah').value;
+                const budaya = document.getElementById('post-budaya').value;
                 const lat = parseFloat(document.getElementById('post-lat').value) || 0;
                 const lng = parseFloat(document.getElementById('post-lng').value) || 0;
-                const maps = document.getElementById('post-maps').value.trim();
+                const maps = document.getElementById('post-maps').value;
 
-                const index = destinationsData.findIndex(d => d.id === id);
-                const subContent = index !== -1 ? destinationsData[index].subContent : [];
-
-                const newDest = { id, title, category, image, sejarah, budaya, lat, lng, maps, subContent };
-
-                if (index !== -1) destinationsData[index] = newDest;
-                else destinationsData.push(newDest);
-
+                if (editId) {
+                    const idx = destinationsData.findIndex(d => d.id === editId);
+                    if (idx !== -1) {
+                        destinationsData[idx] = {
+                            ...destinationsData[idx],
+                            title, category, image, sejarah, budaya, lat, lng, maps
+                        };
+                    }
+                } else {
+                    const newId = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                    destinationsData.push({
+                        id: newId,
+                        title, category, image, sejarah, budaya, lat, lng, maps,
+                        subContent: []
+                    });
+                }
             } else {
-                // SAVE SUB-CONTENT TO PARENT DESTINATION
+                // SAVE SUB-CONTENT BERGAMBAR
                 const parentId = document.getElementById('post-parent-id').value;
-                const title = document.getElementById('subpost-title').value.trim();
-                const desc = document.getElementById('subpost-desc').value.trim();
+                const subTitle = document.getElementById('subpost-title').value;
+                const subImage = document.getElementById('subpost-image').value;
+                const subDesc = document.getElementById('subpost-desc').value;
 
-                const attrRows = document.querySelectorAll('.custom-attr-row');
+                // Collect custom attrs
                 const customAttrs = [];
-                attrRows.forEach(row => {
-                    const k = row.querySelector('.attr-key').value.trim();
-                    const v = row.querySelector('.attr-val').value.trim();
-                    if (k && v) customAttrs.push({ key: k, value: v });
+                const keys = document.querySelectorAll('.custom-key');
+                const vals = document.querySelectorAll('.custom-val');
+                keys.forEach((k, idx) => {
+                    if (k.value.trim() !== '') {
+                        customAttrs.push({ key: k.value.trim(), value: vals[idx].value.trim() });
+                    }
                 });
 
-                const parentObj = destinationsData.find(d => d.id === parentId);
-                if (parentObj) {
-                    if (!parentObj.subContent) parentObj.subContent = [];
-                    parentObj.subContent.push({ title, desc, customAttrs });
+                const parent = destinationsData.find(d => d.id === parentId);
+                if (parent) {
+                    if (!parent.subContent) parent.subContent = [];
+                    parent.subContent.push({
+                        title: subTitle,
+                        image: subImage,
+                        desc: subDesc,
+                        customAttrs
+                    });
                 }
             }
 
             saveDataToStorage();
             closePostModal();
-            renderAdminDashboard();
+            renderAdmin();
         }
 
-        function editDestinationModal(id) {
-            const dest = destinationsData.find(d => d.id === id);
-            if (!dest) return;
+        function editDestination(id) {
+            openPostModal(id);
+        }
 
-            openPostModal();
-            document.getElementById('post-type').value = 'destination';
-            togglePostTypeFields();
+        function deleteDestination(id) {
+            if (confirm("Apakah Anda yakin ingin menghapus destinasi wisata ini?")) {
+                destinationsData = destinationsData.filter(d => d.id !== id);
+                saveDataToStorage();
+                renderAdmin();
+            }
+        }
 
-            document.getElementById('post-edit-id').value = dest.id;
-            document.getElementById('post-title').value = dest.title;
-            document.getElementById('post-category').value = dest.category;
-            document.getElementById('post-image').value = dest.image;
-            document.getElementById('post-sejarah').value = dest.sejarah;
-            document.getElementById('post-budaya').value = dest.budaya;
-            document.getElementById('post-lat').value = dest.lat;
-            document.getElementById('post-lng').value = dest.lng;
-            document.getElementById('post-maps').value = dest.maps;
+        function deleteSubContent(parentId, subIdx) {
+            if (confirm("Apakah Anda yakin ingin menghapus sub-konten ini?")) {
+                const parent = destinationsData.find(d => d.id === parentId);
+                if (parent && parent.subContent) {
+                    parent.subContent.splice(subIdx, 1);
+                    saveDataToStorage();
+                    renderAdmin();
+                }
+            }
         }
 
         function handleSaveGithubSettings(e) {
             e.preventDefault();
-            githubSettings.user = document.getElementById('gh-user').value.trim();
-            githubSettings.repo = document.getElementById('gh-repo').value.trim();
-            githubSettings.branch = document.getElementById('gh-branch').value.trim();
-
+            githubSettings.user = document.getElementById('gh-user').value;
+            githubSettings.repo = document.getElementById('gh-repo').value;
+            githubSettings.branch = document.getElementById('gh-branch').value;
             saveDataToStorage();
-            alert('Pengaturan GitHub Repository berhasil diperbarui!');
-        }
-
-        function addNewSlideFromPicker(url) {
-            if (!url) return;
-            if (!landingSettings.slideImages) landingSettings.slideImages = [];
-            landingSettings.slideImages.push(url);
-            renderAdminDashboard();
-        }
-
-        function removeSlideImage(index) {
-            if (landingSettings.slideImages && landingSettings.slideImages.length > 1) {
-                landingSettings.slideImages.splice(index, 1);
-                renderAdminDashboard();
-            } else alert('Minimal harus ada 1 gambar slider!');
-        }
-
-        function deleteDestinasi(id) {
-            if (confirm('Yakin ingin menghapus destinasi ini?')) {
-                destinationsData = destinationsData.filter(d => d.id !== id);
-                saveDataToStorage();
-                renderAdminDashboard();
-            }
+            alert("Pengaturan GitHub Repositori Berhasil Disimpan!");
         }
 
         function handleSaveLandingSettings(e) {
             e.preventDefault();
-            landingSettings.brandName = document.getElementById('landing-brand').value.trim();
-            landingSettings.title = document.getElementById('landing-title').value.trim();
-            landingSettings.subtitle = document.getElementById('landing-subtitle').value.trim();
-
+            landingSettings.brandName = document.getElementById('set-brand').value;
+            landingSettings.title = document.getElementById('set-title').value;
+            landingSettings.subtitle = document.getElementById('set-subtitle').value;
             saveDataToStorage();
-            renderAdminDashboard();
-            alert('Pengaturan Landing Page berhasil disimpan!');
+            updateNavbar();
+            alert("Pengaturan Teks Landing Page Berhasil Disimpan!");
         }
 
-        function openLoginModal() {
-            if (activeUser) navigateTo('admin');
-            else document.getElementById('login-modal').classList.remove('hidden');
-        }
-
-        function closeLoginModal() {
-            document.getElementById('login-modal').classList.add('hidden');
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            const uInput = document.getElementById('username').value.trim();
-            const pInput = document.getElementById('password').value.trim();
-
-            const foundUser = usersData.find(u => u.username === uInput && (u.password === pInput || pInput === 'admin123'));
-
-            if (foundUser) {
-                activeUser = foundUser;
-                saveDataToStorage();
-                closeLoginModal();
-                navigateTo('admin');
-            } else {
-                document.getElementById('login-error').classList.remove('hidden');
-            }
-        }
-
-        function logoutAdmin() {
-            activeUser = null;
-            saveDataToStorage();
-            navigateTo('home');
-        }
-
+        // NAVIGATION ROUTER
         function navigateTo(page) {
-            if (page === 'home') renderHome();
-            else if (page === 'admin') renderAdminDashboard();
+            if (page === 'home') {
+                renderHome();
+            } else if (page === 'admin') {
+                renderAdmin();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        // INITIALIZATION
+        window.addEventListener('DOMContentLoaded', () => {
+            updateNavbar();
             renderHome();
         });
     </script>
